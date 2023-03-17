@@ -11,6 +11,10 @@ export default class StateDemo extends Component {
     ],
   };
   addItemHandler = () => {
+    if (!this.inputRef.current.value) {
+      alert("请输入有效数据后再添加！");
+      return;
+    }
     const list = this.state.list.slice();
     list.push({
       id: Math.random() * 100000,

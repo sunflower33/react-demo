@@ -1,11 +1,12 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
 // import App from './App';
-import App from './状态/StateDemo';
-import reportWebVitals from './reportWebVitals';
+// import App from './状态/StateDemo';
+import reportWebVitals from "./reportWebVitals";
+import App from "./状态/SetState同步异步";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <App />
