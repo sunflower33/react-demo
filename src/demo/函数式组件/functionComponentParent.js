@@ -1,5 +1,5 @@
 import { Component } from "react";
-import PublicComponent from "./PublicComponent";
+import PublicComponent from "../函数式组件/functionComponentsChildren";
 
 export default class PropsDemo extends Component {
   state = {

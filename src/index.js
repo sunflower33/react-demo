@@ -6,7 +6,8 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 // import App from "./demo/状态/SetState同步异步";
 // import App from "./demo/状态/BetterScroll";
-import App from "./demo/属性/Layout";
+// import App from "./demo/属性/Layout";
+import App from "./demo/函数式组件/functionComponentParent";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
