@@ -4,7 +4,9 @@ import "./index.css";
 // import App from './App';
 // import App from './状态/StateDemo';
 import reportWebVitals from "./reportWebVitals";
-import App from "./状态/SetState同步异步";
+// import App from "./demo/状态/SetState同步异步";
+// import App from "./demo/状态/BetterScroll";
+import App from "./demo/属性/Layout";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

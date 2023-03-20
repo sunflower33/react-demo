@@ -21,6 +21,7 @@ export default class SetStateTest extends Component {
       this.setState({ count: this.state.count + 1 });
       console.log(this.state.count);
     }, 0);
+    
   };
   callbackAddHandler = () => {
     this.setState({ count: this.state.count + 1 }, () => {
@@ -49,5 +50,5 @@ export default class SetStateTest extends Component {
     2. setState处在异步的逻辑中，同步更新状态，同步更新真实dom
     3. setState接受第二个参数，第二参数是回调函数，状态和dom更新完后就会被触发
 
-    在react18.2.0中，2、3点无效
+    在react18.2.0中，2点无效
 */
