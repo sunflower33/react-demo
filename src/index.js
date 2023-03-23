@@ -11,7 +11,8 @@ import reportWebVitals from "./reportWebVitals";
 // import App from "./demo/受控组件与非受控组件/非受控组件";
 // import App from "./demo/受控组件与非受控组件/受控组件";
 // import App from "./demo/循环渲染/index";
-import App from "./demo/受控组件与非受控组件/受控组件demo";
+// import App from "./demo/受控组件与非受控组件/受控组件demo";
+import App from "./demo/通信/父传子-callback";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

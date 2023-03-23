@@ -1,4 +1,5 @@
 import { Component } from "react";
+import ListItem from "./ListItem";
 
 export default class mapDom extends Component {
   state = {
@@ -19,29 +20,21 @@ export default class mapDom extends Component {
   };
 
   render() {
-    let newList = this.state.list.map((item, index) => (
-      <li key={item.id}>
-        <input
-          type="checkbox"
-          checked={item.checked}
-          onChange={() => this.checkHandler(index)}
-        />
-        <span style={{ textDecoration: item.checked ? "line-through" : "" }}>
-          {item.text}
-        </span>
-        <button onClick={this.deleteHandler.bind(this, index)}>Delete</button>
-      </li>
-    ));
     return (
       <div>
         <input
           type="text"
+          value={this.state.keyword}
           onChange={(evt) => {
             this.setState({ keyword: evt.target.value });
           }}
         />
         <button onClick={() => this.addItemHandler()}>添加</button>
-        <ul>{newList}</ul>
+        <ListItem
+          list={this.state.list}
+          checkHandler={(index) => this.checkHandler(index)}
+          deleteHandler={(index) => this.deleteHandler(index)}
+        />
       </div>
     );
   }
@@ -51,9 +44,9 @@ export default class mapDom extends Component {
     this.setState({ list: newList });
   }
   addItemHandler() {
-    if(!this.state.keyword.trim()) {
-      alert('请输入有效信息！')
-      return
+    if (!this.state.keyword.trim()) {
+      alert("请输入有效信息！");
+      return;
     }
     let newList = [...this.state.list];
     newList.push({
