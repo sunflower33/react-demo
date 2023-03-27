@@ -1,5 +1,7 @@
 import { Component } from "react";
+import ControlledField from "./ControlledField";
 import ListItem from "./ListItem";
+import ListItemFunc from "./ListItemFunc";
 
 export default class mapDom extends Component {
   state = {
@@ -22,15 +24,22 @@ export default class mapDom extends Component {
   render() {
     return (
       <div>
-        <input
+        <ControlledField
           type="text"
           value={this.state.keyword}
-          onChange={(evt) => {
-            this.setState({ keyword: evt.target.value });
+          onChange={(value) => {
+            this.setState({ keyword: value });
           }}
         />
         <button onClick={() => this.addItemHandler()}>添加</button>
+        <h1>类组件</h1>
         <ListItem
+          list={this.state.list}
+          checkHandler={(index) => this.checkHandler(index)}
+          deleteHandler={(index) => this.deleteHandler(index)}
+        />
+        <h1>函数式组件</h1>
+        <ListItemFunc
           list={this.state.list}
           checkHandler={(index) => this.checkHandler(index)}
           deleteHandler={(index) => this.deleteHandler(index)}
@@ -52,6 +61,7 @@ export default class mapDom extends Component {
     newList.push({
       id: Math.random() * 1000000,
       text: this.state.keyword,
+      checked: false,
     });
     this.setState({ list: newList, keyword: "", checked: false });
   }
