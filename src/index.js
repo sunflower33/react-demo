@@ -13,7 +13,11 @@ import reportWebVitals from "./reportWebVitals";
 // import App from "./demo/循环渲染/index";
 // import App from "./demo/受控组件与非受控组件/受控组件demo";
 // import App from "./demo/通信/父传子-callback";
-import App from "./demo/通信/demoRef";
+// import App from "./demo/通信/demoRef";
+// import App from "./demo/通信/状态提升/testRequestJson";
+// import App from "./demo/通信/发布订阅/testRequestJson";
+// import App from "./demo/通信/插槽/slotDemo";
+import App from "./demo/生命周期/lifecycle";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
