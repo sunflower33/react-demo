@@ -18,7 +18,8 @@ import reportWebVitals from "./reportWebVitals";
 // import App from "./demo/通信/发布订阅/testRequestJson";
 // import App from "./demo/通信/插槽/slotDemo";
 // import App from "./demo/生命周期/lifecycle";
-import App from "./demo/生命周期/lifecycleDemo";
+// import App from "./demo/生命周期/lifecycleDemo";
+import App from "./demo/生命周期/销毁";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
