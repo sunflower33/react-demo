@@ -1,7 +1,7 @@
 export default function ListItem(props) {
   return (
     <ul>
-      {props.list.map((item, index) => (
+      {props.list && props.list.map((item, index) => (
         <li key={item.id}>
           <input
             type="checkbox"

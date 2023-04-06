@@ -1,6 +1,7 @@
 import axios from "axios";
 import BetterScroll from "better-scroll";
-import { Component } from "react";
+import { Component, PureComponent } from "react";
+import SwiperDemo from "./SwiperDemo";
 import "../index.css";
 
 class Child extends Component {
@@ -33,39 +34,72 @@ class Child extends Component {
     if (prevProps.category === this.state.category) {
       return;
     }
-    console.log('componentDidUpdate')
+    console.log("componentDidUpdate");
     this.getCategory(this.state.category);
   }
   render() {
-    return <div>测试componentWillRecieveProps: {this.state.categoryData}</div>;
+    return <div>测试getDerivedStateFromProps: {this.state.categoryData}</div>;
   }
 }
 
-export default class BetterScrollComponent extends Component {
+export default class BetterScrollComponent extends PureComponent {
   state = {
     list: [],
     category: 1,
     isLoading: true,
+    hadInsertData: false,
+    hadPageInit: false,
   };
   componentDidMount() {
     axios.get("/test.json").then((res) => {
-      this.setState({ list: res?.data?.list || [], isLoading: false });
+      this.setState({
+        list: res?.data?.list || [],
+        isLoading: false,
+        hadPageInit: true,
+      });
     });
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (JSON.stringify(nextState) === JSON.stringify(this.state)) {
-      return false;
-    }
-    return true;
+  getSnapshotBeforeUpdate() {
+    return {
+      scrollTop: document.getElementById("scrollBox").scrollTop,
+      scrollHeight: document.getElementById("scrollBox").scrollHeight,
+    };
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState, value) {
+    if (
+      value.scrollHeight !== document.getElementById("scrollBox").clientHeight
+    ) {
+      document.getElementById("scrollBox").scrollTop =
+        value.scrollTop +
+        document.getElementById("scrollBox").scrollHeight -
+        value.scrollHeight;
+    }
     if (prevState.list.length === 0) {
       new BetterScroll(".wrapper");
     }
   }
-
+  getNewData = () => {
+    const newList = [
+      ...[
+        {
+          id: 17,
+          text: "text17",
+        },
+        {
+          id: 18,
+          text: "text18",
+        },
+        {
+          id: 19,
+          text: "text19",
+        },
+      ],
+      ...this.state.list,
+    ];
+    this.setState({ list: newList, hadInsertData: true });
+  };
   categoryHandler = (category) => {
     this.setState({
       category,
@@ -96,6 +130,30 @@ export default class BetterScrollComponent extends Component {
           </li>
         </ul>
         {!this.state.isLoading && <Child category={this.state.category} />}
+        <h1 className="text-center">测试getSnapshotBeforeUpdate</h1>
+        <button
+          disabled={this.state.hadInsertData}
+          onClick={() => this.getNewData()}
+        >
+          插入新数据
+        </button>
+        <div
+          id="scrollBox"
+          style={{ height: "200px", background: "#f5f5f5", overflow: "auto" }}
+        >
+          <ul>
+            {this.state.list.map((item) => (
+              <li key={item.id} style={{ lineHeight: "40px" }}>
+                ({item.id}){item.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <section>
+          <h1 className="text-center">SwiperDemo</h1>
+          <SwiperDemo />
+        </section>
       </div>
     );
   }

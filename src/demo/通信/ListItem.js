@@ -1,13 +1,13 @@
 import { Component } from "react";
 
 export default class ListItem extends Component {
-  static defaultProps = {
+  static   = {
     list: [],
   };
   render() {
     return (
       <ul>
-        {this.props.list.map((item, index) => (
+        {this.props.list && this.props.list.map((item, index) => (
           <li key={item.id}>
             <input
               type="checkbox"
