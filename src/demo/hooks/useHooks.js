@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ControlledField from "../通信/ControlledField";
 import ListItemFunc from "../通信/ListItemFunc";
+import "../../asset/index.css";
+import axios from "axios";
+
+function Child(props) {
+  const [categoryData, setCategoryData] = useState("");
+
+  useEffect(() => {
+    axios.get("/test.json").then((res) => {
+      if (props.category === 1) {
+        setCategoryData(res?.data?.category_1 || "");
+      } else {
+        setCategoryData(res?.data?.category_2 || "");
+      }
+    });
+  }, [props.category]);
+  return <div>测试getDerivedStateFromProps: {categoryData}</div>;
+}
 
 export default function UseHooks() {
-  const [list, setList] = useState([
-    {
-      id: "test1",
-      text: "test1",
-      checked: false,
-    },
-    {
-      id: "test2",
-      text: "test2",
-      checked: true,
-    },
-    { id: "test3", text: "test3", checked: false },
-  ]);
+  const [list, setList] = useState([]);
   const [keyword, setKeyword] = useState("");
+  const [category, setCategory] = useState(1);
+
+  useEffect(() => {
+    axios.get("/test.json").then((res) => {
+      setList(res?.data?.list || []);
+    });
+  }, []);
+
   const checkHandler = (index) => {
     const newList = [...list];
     newList[index].checked = !newList[index].checked;
@@ -28,7 +41,7 @@ export default function UseHooks() {
       return;
     }
     let newList = [...list];
-    newList.push({
+    newList.unshift({
       id: Math.random() * 1000000,
       text: keyword,
       checked: false,
@@ -43,19 +56,34 @@ export default function UseHooks() {
   };
   return (
     <div>
-      <ControlledField
-        type="text"
-        value={keyword}
-        onChange={(value) => {
-          setKeyword(value);
-        }}
-      />
-      <button onClick={() => addItemHandler()}>添加</button>
-      <ListItemFunc
-        list={list || []}
-        checkHandler={(index) => checkHandler(index)}
-        deleteHandler={(index) => deleteHandler(index)}
-      />
+      <section>
+        <h1 className="text-center">useState()应用</h1>
+        <ControlledField
+          type="text"
+          value={keyword}
+          onChange={(value) => {
+            setKeyword(value);
+          }}
+        />
+        <button onClick={() => addItemHandler()}>添加</button>
+        <ListItemFunc
+          list={list || []}
+          checkHandler={(index) => checkHandler(index)}
+          deleteHandler={(index) => deleteHandler(index)}
+        />
+      </section>
+      <section>
+        <h1 className="text-center">useEffect()应用</h1>
+        <ul className="tabs">
+          <li className="tab-item" onClick={() => setCategory(1)}>
+            分类一
+          </li>
+          <li className="tab-item" onClick={() => setCategory(2)}>
+            分类二
+          </li>
+        </ul>
+        {<Child category={category} />}
+      </section>
     </div>
   );
 }
