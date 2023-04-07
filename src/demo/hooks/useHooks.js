@@ -1,8 +1,24 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useCallback, useEffect, useState } from "react";
+import "../../asset/index.css";
 import ControlledField from "../通信/ControlledField";
 import ListItemFunc from "../通信/ListItemFunc";
-import "../../asset/index.css";
-import axios from "axios";
+
+function TestDestroyed() {
+  useEffect(() => {
+    window.onresize = () => {
+      console.log("窗口有调整~~~~~~~~~~~~~~~");
+    };
+    var timer = setInterval(() => {
+      console.log("定时器执行了~~~~~~~~~~~");
+    }, 2000);
+    return () => {
+      window.onresize = null;
+      clearInterval(timer);
+    };
+  }, []);
+  return <div>测试清除定时器和销毁事件监听</div>;
+}
 
 function Child(props) {
   const [categoryData, setCategoryData] = useState("");
@@ -23,6 +39,7 @@ export default function UseHooks() {
   const [list, setList] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [category, setCategory] = useState(1);
+  const [showTestDestroyed, setShowTestDestroyed] = useState(true);
 
   useEffect(() => {
     axios.get("/test.json").then((res) => {
@@ -30,12 +47,15 @@ export default function UseHooks() {
     });
   }, []);
 
-  const checkHandler = (index) => {
-    const newList = [...list];
-    newList[index].checked = !newList[index].checked;
-    setList(newList);
-  };
-  const addItemHandler = () => {
+  const checkHandler = useCallback(
+    (index) => {
+      const newList = [...list];
+      newList[index].checked = !newList[index].checked;
+      setList(newList);
+    },
+    [list]
+  );
+  const addItemHandler = useCallback(() => {
     if (!keyword.trim()) {
       alert("请输入有效信息！");
       return;
@@ -48,12 +68,15 @@ export default function UseHooks() {
     });
     setList(newList);
     setKeyword("");
-  };
-  const deleteHandler = (index) => {
-    let newList = [...list];
-    newList.splice(index, 1);
-    setList(newList);
-  };
+  }, [keyword, list]);
+  const deleteHandler = useCallback(
+    (index) => {
+      let newList = [...list];
+      newList.splice(index, 1);
+      setList(newList);
+    },
+    [list]
+  );
   return (
     <div>
       <section>
@@ -83,6 +106,13 @@ export default function UseHooks() {
           </li>
         </ul>
         {<Child category={category} />}
+      </section>
+      <section>
+        <h1 className="text-center">useEffect()应用---销毁处理</h1>
+        <button onClick={() => setShowTestDestroyed(!showTestDestroyed)}>
+          {showTestDestroyed ? "隐藏" : "显示"}
+        </button>
+        {showTestDestroyed && <TestDestroyed />}
       </section>
     </div>
   );
