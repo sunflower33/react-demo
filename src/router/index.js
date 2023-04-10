@@ -1,7 +1,7 @@
 import React from "react";
 import { HashRouter, Redirect, Route, Switch } from "react-router-dom";
 import HooksDemo from "../demo/hooks/hooksDemo";
-import LifecycleDemoV2 from "../demo/生命周期/生命周期V2/lifecycleDemoV2";
+import LifeCycle from "../views/LifeCycle";
 import NotFoundPage from "../views/notFoundPage";
 
 export default function RouterLayout() {
@@ -10,7 +10,7 @@ export default function RouterLayout() {
       <HashRouter>
         <Switch>
           <Route path="/hooksDemo" component={HooksDemo} />
-          <Route path="/lifecycleDemoV2" component={LifecycleDemoV2} />
+          <Route path="/lifeCycle" component={LifeCycle} />
           <Redirect from="/" to="/hooksDemo" exact />
           <Route component={NotFoundPage} />
           {/* <Route path="*" component={NotFoundPage} /> */}

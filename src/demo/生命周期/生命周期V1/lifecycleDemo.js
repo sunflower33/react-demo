@@ -1,7 +1,7 @@
 import axios from "axios";
 import BetterScroll from "better-scroll";
 import { Component } from "react";
-import "../index.css";
+import "../../../asset/index.css";
 
 class Child extends Component {
   state = {
@@ -15,7 +15,6 @@ class Child extends Component {
       } else {
         this.setState({ categoryData: res?.data?.category_2 || "" });
       }
-
     });
   }
   componentDidMount = ()=> {
