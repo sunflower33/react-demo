@@ -22,13 +22,15 @@ import reportWebVitals from "./reportWebVitals";
 // import App from "./demo/生命周期/生命周期V1/销毁";
 // import App from "./demo/生命周期/生命周期V2/getDerivedStateFromProps";
 // import App from "./demo/生命周期/生命周期V2/lifecycleDemoV2";
-import HooksDemo from "./demo/hooks/hooksDemo"
+// import HooksDemo from "./demo/hooks/hooksDemo"
+import RouterLayout  from "./router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <App></App> */}
-    <HooksDemo />
+    {/* <HooksDemo /> */}
+    <RouterLayout />
   </React.StrictMode>
 );
 

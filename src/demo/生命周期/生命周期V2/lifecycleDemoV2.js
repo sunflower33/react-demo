@@ -2,7 +2,7 @@ import axios from "axios";
 import BetterScroll from "better-scroll";
 import { Component, PureComponent } from "react";
 import SwiperDemo from "./SwiperDemo";
-import "../index.css";
+import "../../../asset/index.css";
 
 class Child extends Component {
   state = {
@@ -108,6 +108,7 @@ export default class BetterScrollComponent extends PureComponent {
   render() {
     return (
       <div>
+        <h1 className="text-center">新生命周期</h1>
         <div
           className="wrapper"
           style={{ height: "200px", overflow: "hidden", background: "yellow" }}
@@ -130,7 +131,7 @@ export default class BetterScrollComponent extends PureComponent {
           </li>
         </ul>
         {!this.state.isLoading && <Child category={this.state.category} />}
-        <h1 className="text-center">测试getSnapshotBeforeUpdate</h1>
+        <h3 className="text-center">测试getSnapshotBeforeUpdate</h3>
         <button
           disabled={this.state.hadInsertData}
           onClick={() => this.getNewData()}
@@ -151,7 +152,7 @@ export default class BetterScrollComponent extends PureComponent {
         </div>
 
         <section>
-          <h1 className="text-center">SwiperDemo</h1>
+          <h3 className="text-center">SwiperDemo</h3>
           <SwiperDemo />
         </section>
       </div>

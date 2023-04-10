@@ -11,3 +11,13 @@
 .text-center {
   text-align: center;
 }
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.flex-row-item {
+  display: inline-block;
+  margin-right: 30px
+}

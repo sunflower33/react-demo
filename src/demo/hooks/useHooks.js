@@ -1,8 +1,9 @@
 import axios from "axios";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useRef, useMemo } from "react";
 import "../../asset/index.css";
 import ControlledField from "../通信/ControlledField";
 import ListItemFunc from "../通信/ListItemFunc";
+import UseContextDemo from "./useContextDemo";
 
 function TestDestroyed() {
   useEffect(() => {
@@ -35,11 +36,25 @@ function Child(props) {
   return <div>测试getDerivedStateFromProps: {categoryData}</div>;
 }
 
+// 自定义hooks
+function useGetFilterList(list, keyword) {
+  const filterList = useMemo(() => {
+    return list.filter((item) => {
+      return item.text.includes(keyword);
+    });
+  }, [list, keyword]);
+  return filterList;
+}
+
+
 export default function UseHooks() {
   const [list, setList] = useState([]);
-  const [keyword, setKeyword] = useState("");
+  const [newText, setNewText] = useState("");
   const [category, setCategory] = useState(1);
   const [showTestDestroyed, setShowTestDestroyed] = useState(true);
+  const [keyword, setKeyword] = useState("");
+
+  const inputRef = useRef();
 
   useEffect(() => {
     axios.get("/test.json").then((res) => {
@@ -56,19 +71,33 @@ export default function UseHooks() {
     [list]
   );
   const addItemHandler = useCallback(() => {
-    if (!keyword.trim()) {
+    if (!newText.trim()) {
       alert("请输入有效信息！");
       return;
     }
     let newList = [...list];
     newList.unshift({
       id: Math.random() * 1000000,
-      text: keyword,
+      text: newText,
       checked: false,
     });
     setList(newList);
-    setKeyword("");
-  }, [keyword, list]);
+    setNewText("");
+  }, [newText, list]);
+  const addItemByRef = useCallback(() => {
+    if (!inputRef.current.value.trim()) {
+      alert("请输入有效信息！");
+      return;
+    }
+    let newList = [...list];
+    newList.unshift({
+      id: Math.random() * 1000000,
+      text: inputRef.current.value,
+      checked: false,
+    });
+    setList(newList);
+    inputRef.current.value = "";
+  }, [list]);
   const deleteHandler = useCallback(
     (index) => {
       let newList = [...list];
@@ -77,20 +106,46 @@ export default function UseHooks() {
     },
     [list]
   );
+
+  const filterList = useGetFilterList(list, keyword);
   return (
     <div>
       <section>
         <h1 className="text-center">useState()应用</h1>
-        <ControlledField
-          type="text"
-          value={keyword}
-          onChange={(value) => {
-            setKeyword(value);
-          }}
-        />
-        <button onClick={() => addItemHandler()}>添加</button>
+
+        <ul className="flex-row ">
+          <li className="flex-row-item">
+            <h3>useState</h3>
+
+            <ControlledField
+              type="text"
+              value={newText}
+              onChange={(value) => {
+                setNewText(value);
+              }}
+            />
+            <button onClick={() => addItemHandler()}>添加</button>
+          </li>
+          <li className="flex-row-item">
+            <h3>useRef</h3>
+
+            <input type="text" ref={inputRef} />
+            <button onClick={() => addItemByRef()}>添加</button>
+          </li>
+          <li className="flex-row-item">
+            <h3>useMemo</h3>
+            搜索{" "}
+            <ControlledField
+              type="text"
+              value={keyword}
+              onChange={(value) => {
+                setKeyword(value);
+              }}
+            />
+          </li>
+        </ul>
         <ListItemFunc
-          list={list || []}
+          list={filterList || []}
           checkHandler={(index) => checkHandler(index)}
           deleteHandler={(index) => deleteHandler(index)}
         />
@@ -113,6 +168,10 @@ export default function UseHooks() {
           {showTestDestroyed ? "隐藏" : "显示"}
         </button>
         {showTestDestroyed && <TestDestroyed />}
+      </section>
+      <section>
+        <h1 className="text-center">useContext</h1>
+        <UseContextDemo />
       </section>
     </div>
   );
