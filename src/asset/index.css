@@ -21,3 +21,7 @@
   display: inline-block;
   margin-right: 30px
 }
+
+.text-danger{
+  color: brown;
+}

@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Component } from "react";
+import "../../../asset/index.css";
 
 class ListItem extends Component {
   render() {
@@ -14,7 +15,7 @@ class ListItem extends Component {
 
 class ItmeDetail extends Component {
   render() {
-    return <div>{this.props.info.text || '无内容'}</div>;
+    return <div>{this.props.info.text || "无内容"}</div>;
   }
 }
 
@@ -28,17 +29,25 @@ export default class testRequestJson extends Component {
   }
   render() {
     return (
-      <div>
-        {this.state.list.map((item) => (
-          <ListItem
-            key={item.id}
-            {...item}
-            onShowDetail={() => {
-              this.setState({ ItmeDetail: item });
-            }}
-          ></ListItem>
-        ))}
-        <ItmeDetail info={this.state.ItmeDetail}></ItmeDetail>
+      <div className="flex-row">
+        <div
+          style={{
+            width: "50%",
+            height: "200px",
+            overflow: "auto",
+            background: "yellowgreen",
+          }}
+        >
+          {this.state.list.map((item) => (
+            <ListItem
+              key={item.id}
+              {...item}
+              onShowDetail={() => {
+                this.setState({ ItmeDetail: item });
+              }}
+            ></ListItem>
+          ))}
+        </div>
       </div>
     );
   }

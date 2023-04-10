@@ -1,3 +1,4 @@
+
 export default function ListItem(props) {
   return (
     <ul>
@@ -17,6 +18,11 @@ export default function ListItem(props) {
             <button onClick={props.deleteHandler.bind(this, index)}>
               Delete
             </button>
+            {typeof props.detailHandler == "function" && (
+              <button onClick={() => props.detailHandler(item, index)}>
+                Detail
+              </button>
+            )}
           </li>
         ))}
     </ul>

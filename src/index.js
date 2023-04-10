@@ -14,22 +14,18 @@ import reportWebVitals from "./reportWebVitals";
 // import App from "./demo/受控组件与非受控组件/受控组件demo";
 // import App from "./demo/通信/父传子-callback";
 // import App from "./demo/通信/demoRef";
-// import App from "./demo/通信/状态提升/testRequestJson";
+// import App from "./demo/通信/状态提升/statusElevation";
 // import App from "./demo/通信/发布订阅/testRequestJson";
 // import App from "./demo/通信/插槽/slotDemo";
 // import App from "./demo/生命周期/生命周期V1/lifecycle";
-// import App from "./demo/生命周期/生命周期V1/lifecycleDemo";
 // import App from "./demo/生命周期/生命周期V1/销毁";
 // import App from "./demo/生命周期/生命周期V2/getDerivedStateFromProps";
-// import App from "./demo/生命周期/生命周期V2/lifecycleDemoV2";
-// import HooksDemo from "./demo/hooks/hooksDemo"
 import RouterLayout  from "./router";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     {/* <App></App> */}
-    {/* <HooksDemo /> */}
     <RouterLayout />
   </React.StrictMode>
 );

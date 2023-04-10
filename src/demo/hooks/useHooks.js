@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useCallback, useEffect, useState, useRef, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useHistory } from "react-router-dom";
 import "../../asset/index.css";
 import ControlledField from "../通信/ControlledField";
 import ListItemFunc from "../通信/ListItemFunc";
@@ -46,8 +47,8 @@ function useGetFilterList(list, keyword) {
   return filterList;
 }
 
-
-export default function UseHooks() {
+export default function UseHooks(props) {
+  const history = useHistory();
   const [list, setList] = useState([]);
   const [newText, setNewText] = useState("");
   const [category, setCategory] = useState(1);
@@ -107,6 +108,9 @@ export default function UseHooks() {
     [list]
   );
 
+  const detailHandler = useCallback((item, index) => {
+    history.push(`/testParams/${item.id}`);
+  }, [history]);
   const filterList = useGetFilterList(list, keyword);
   return (
     <div>
@@ -148,6 +152,7 @@ export default function UseHooks() {
           list={filterList || []}
           checkHandler={(index) => checkHandler(index)}
           deleteHandler={(index) => deleteHandler(index)}
+          detailHandler={(item, index) => detailHandler(item, index)}
         />
       </section>
       <section>
