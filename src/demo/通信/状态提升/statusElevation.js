@@ -22,7 +22,7 @@ class ItmeDetail extends Component {
 export default class testRequestJson extends Component {
   constructor() {
     super();
-    this.state = { list: [], ItmeDetail: {} };
+    this.state = { list: [], itmeDetail: {} };
     axios.get("/test.json").then((res) => {
       this.setState({ list: res?.data?.list || [] });
     });
@@ -43,11 +43,12 @@ export default class testRequestJson extends Component {
               key={item.id}
               {...item}
               onShowDetail={() => {
-                this.setState({ ItmeDetail: item });
+                this.setState({ itmeDetail: item });
               }}
             ></ListItem>
           ))}
         </div>
+        <ItmeDetail info={this.state.itmeDetail} />
       </div>
     );
   }
