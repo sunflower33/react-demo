@@ -1,12 +1,19 @@
-import { HashRouter, NavLink, Redirect, Route, Switch } from "react-router-dom";
+import {
+  HashRouter as Router,
+  // BrowserRouter as Router,
+  NavLink,
+  Redirect,
+  Route,
+  Switch,
+} from "react-router-dom";
 import "../asset/index.css";
 import HooksDemo from "../demo/hooks/hooksDemo";
 import Communication from "../views/Communication";
 import LifeCycle from "../views/LifeCycle";
-import TestParams from "../views/TestParams";
-import UserInfo from "../views/UserInfo";
 import Login from "../views/Login";
 import NotFoundPage from "../views/notFoundPage";
+import TestParams from "../views/TestParams";
+import UserInfo from "../views/UserInfo";
 
 function isAuth() {
   const token = window.localStorage?.token;
@@ -18,7 +25,7 @@ function isAuth() {
 export default function RouterLayout() {
   return (
     <div>
-      <HashRouter>
+      <Router>
         <ul>
           <li>
             <NavLink to="/communication" activeClassName="text-danger">
@@ -58,7 +65,7 @@ export default function RouterLayout() {
           <Route component={NotFoundPage} />
           {/* <Route path="*" component={NotFoundPage} /> */}
         </Switch>
-      </HashRouter>
+      </Router>
     </div>
   );
 }

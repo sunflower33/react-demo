@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "../../asset/index.css";
+import Tabs from "../../components/Tabs";
 import ControlledField from "../通信/ControlledField";
 import ListItemFunc from "../通信/ListItemFunc";
 import UseContextDemo from "./useContextDemo";
@@ -24,16 +25,15 @@ function TestDestroyed() {
 
 function Child(props) {
   const [categoryData, setCategoryData] = useState("");
-
   useEffect(() => {
     axios.get("/test.json").then((res) => {
-      if (props.category === 1) {
+      if (props.match.params.id === "1") {
         setCategoryData(res?.data?.category_1 || "");
       } else {
         setCategoryData(res?.data?.category_2 || "");
       }
     });
-  }, [props.category]);
+  }, [props]);
   return <div>测试getDerivedStateFromProps: {categoryData}</div>;
 }
 
@@ -51,7 +51,6 @@ export default function UseHooks(props) {
   const history = useHistory();
   const [list, setList] = useState([]);
   const [newText, setNewText] = useState("");
-  const [category, setCategory] = useState(1);
   const [showTestDestroyed, setShowTestDestroyed] = useState(true);
   const [keyword, setKeyword] = useState("");
 
@@ -108,9 +107,12 @@ export default function UseHooks(props) {
     [list]
   );
 
-  const detailHandler = useCallback((item, index) => {
-    history.push(`/testParams/${item.id}`);
-  }, [history]);
+  const detailHandler = useCallback(
+    (item, index) => {
+      history.push(`/testParams/${item.id}`);
+    },
+    [history]
+  );
   const filterList = useGetFilterList(list, keyword);
   return (
     <div>
@@ -157,15 +159,21 @@ export default function UseHooks(props) {
       </section>
       <section>
         <h1 className="text-center">useEffect()应用</h1>
-        <ul className="tabs">
-          <li className="tab-item" onClick={() => setCategory(1)}>
-            分类一
-          </li>
-          <li className="tab-item" onClick={() => setCategory(2)}>
-            分类二
-          </li>
-        </ul>
-        {<Child category={category} />}
+        <Tabs
+          data={[
+            { title: "分类一", id: 1 },
+            { title: "分类二", id: 2 },
+          ]}
+        />
+        <Switch>
+          <Route
+            path="/hooksDemo/categoryList/:id"
+            render={(props) => {
+              return <Child {...props} />;
+            }}
+          ></Route>
+          <Redirect to="/hooksDemo/categoryList"></Redirect>
+        </Switch>
       </section>
       <section>
         <h1 className="text-center">useEffect()应用---销毁处理</h1>

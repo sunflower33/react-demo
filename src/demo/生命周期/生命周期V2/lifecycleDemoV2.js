@@ -42,6 +42,7 @@ class Child extends Component {
   }
 }
 
+
 export default class BetterScrollComponent extends PureComponent {
   state = {
     list: [],

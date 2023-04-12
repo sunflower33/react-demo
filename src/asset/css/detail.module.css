@@ -1,0 +1,9 @@
+.title {
+    font-size: 18px;
+    color: black;
+    font-weight: 700;
+}
+
+:global(.title) {
+    font-size: red;
+}
