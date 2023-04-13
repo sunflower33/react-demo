@@ -1,8 +1,8 @@
 import axios from "axios";
-import store from "../store";
+import {store} from "../store";
 export const getBatchOptions = (options = []) => {
   return function (dispatch) {
-    const state = { ...store.getState().ReducerA };
+    const state = { ...store.getState().ReducerOptions };
     const result = {
       type: "getBatchOptions",
       state,

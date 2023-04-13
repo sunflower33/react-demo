@@ -1,5 +1,5 @@
 import "./index.css";
-import store from "./redux/store";
+import {store} from "./redux/store";
 // import App from './状态/StateDemo';
 // import App from "./demo/状态/SetState同步异步";
 // import App from "./demo/状态/BetterScroll";
@@ -16,17 +16,22 @@ import store from "./redux/store";
 // import App from "./demo/生命周期/生命周期V1/销毁";
 // import App from "./demo/生命周期/生命周期V2/getDerivedStateFromProps";
 import { useEffect } from "react";
+import { connect } from "react-redux";
 import { getBatchOptions } from "./redux/actionCreator/BatchOptions";
-import RouterLayout from "./router";
-export default function App() {
+import WindowLayout from "./layout/WindowLayout";
+
+function App() {
   useEffect(() => {
-    console.log(store.getState()?.ReducerA?.dataOptions);
-    if (!store.getState()?.ReducerA?.dataOptions) {
+    if (!store.getState()?.ReducerOptions?.dataOptions) {
       store.dispatch(getBatchOptions(["country"]));
     }
     store.subscribe(() => {
-      console.log("App订阅----", store.getState().ReducerA.dataOptions);
+      console.log("App订阅----", store.getState().ReducerOptions.dataOptions);
     });
   });
-  return <RouterLayout />;
+  return <WindowLayout />;
 }
+// connect( 将来给传给子组件的属性， 传给子组件传来的回调函数)
+export default connect(() => {
+  return {};
+},)(App);

@@ -1,5 +1,6 @@
+import { Col, Row } from "antd";
 import axios from "axios";
-import React, { useEffect, useContext, useReducer } from "react";
+import React, { useContext, useEffect, useReducer } from "react";
 
 const GlobalContext = React.createContext();
 
@@ -38,15 +39,17 @@ export default function useContextDemo() {
         dispatch,
       }}
     >
-      <section className="flex-row" style={{ backgroundColor: "greenyellow" }}>
-        <div style={{ width: "60%", height: "200px", overflow: "auto" }}>
+      <Row style={{ backgroundColor: "greenyellow" }}>
+        <Col span={12} style={{ height: "200px", overflow: "auto" }}>
           {state.list &&
             state.list.map((item) => (
               <ListItem key={item.id} {...item}></ListItem>
             ))}
-        </div>
-        <ItmeDetail />
-      </section>
+        </Col>
+        <Col span={12}>
+          <ItmeDetail />
+        </Col>
+      </Row>
     </GlobalContext.Provider>
   );
 }

@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { connect } from "react-redux";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
 import "../../asset/index.css";
 import Tabs from "../../components/Tabs";
+import { getTestJsonData } from "../../redux/actionCreator/TestJsonData";
 import ControlledField from "../通信/ControlledField";
 import ListItemFunc from "../通信/ListItemFunc";
 import UseContextDemo from "./useContextDemo";
@@ -47,7 +49,7 @@ function useGetFilterList(list, keyword) {
   return filterList;
 }
 
-export default function UseHooks(props) {
+function UseHooks(props) {
   const history = useHistory();
   const [list, setList] = useState([]);
   const [newText, setNewText] = useState("");
@@ -55,12 +57,14 @@ export default function UseHooks(props) {
   const [keyword, setKeyword] = useState("");
 
   const inputRef = useRef();
-
+  const { ReducerTest, getTestJsonData } = props;
   useEffect(() => {
-    axios.get("/test.json").then((res) => {
-      setList(res?.data?.list || []);
-    });
-  }, []);
+    if (!ReducerTest.testJsonData?.list) {
+      getTestJsonData();
+    } else {
+      setList(ReducerTest?.testJsonData?.list || []);
+    }
+  }, [ReducerTest, getTestJsonData]);
 
   const checkHandler = useCallback(
     (index) => {
@@ -189,3 +193,15 @@ export default function UseHooks(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => {
+  const { ReducerTest = {} } = state;
+  return {
+    ReducerTest,
+  };
+};
+const mapDispatchToProps = {
+  getTestJsonData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UseHooks);

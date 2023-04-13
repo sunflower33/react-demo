@@ -1,26 +1,40 @@
-import axios from "axios";
 import BetterScroll from "better-scroll";
 import { Component } from "react";
 import "../../../asset/index.css";
+import { getTestJsonData } from "../../../redux/actionCreator/TestJsonData";
+import {store} from "../../../redux/store";
 
 class Child extends Component {
   state = {
     category: 1,
     categoryData: "",
   };
+
   getCategory(category) {
-    axios.get("/test.json").then((res) => {
-      if (category === 1) {
-        this.setState({ categoryData: res?.data?.category_1 || "" });
-      } else {
-        this.setState({ categoryData: res?.data?.category_2 || "" });
-      }
-    });
+    const testJsonData = store.getState().ReducerTest.testJsonData;
+    if (category === 1) {
+      this.setState({ categoryData: testJsonData?.category_1 || "" });
+    } else {
+      this.setState({ categoryData: testJsonData?.category_2 || "" });
+    }
   }
-  componentDidMount = ()=> {
-    this.getCategory(this.props.category)
+  componentDidMount() {
+    if (!store.getState().ReducerTest.testJsonData) {
+      store.dispatch(getTestJsonData());
+      let unsubcribe = store.subscribe(() => {
+        this.getCategory(this.state.category);
+      });
+      this.setState({
+        unsubcribe: unsubcribe,
+      });
+    } else {
+      this.getCategory(this.state.category);
+    }
   }
-  
+  componentWillUnmount() {
+    typeof this.state.unsubcribe == "function" && this.state.unsubcribe();
+  }
+
   componentWillReceiveProps(nextProps) {
     if (JSON.stringify(nextProps) === JSON.stringify(this.props)) {
       return false;
@@ -28,7 +42,7 @@ class Child extends Component {
     this.setState({
       category: nextProps.category,
     });
-    this.getCategory(nextProps.category)
+    this.getCategory(nextProps.category);
   }
   render() {
     return <div>测试componentWillRecieveProps: {this.state.categoryData}</div>;
@@ -40,13 +54,33 @@ export default class BetterScrollComponent extends Component {
     list: [],
     category: 1,
     isLoading: true,
+    unsubcribe: undefined
   };
   componentDidMount() {
-    axios.get("/test.json").then((res) => {
-      this.setState({ list: res?.data?.list || [], isLoading: false });
-    });
+    if (!store.getState().ReducerTest.testJsonData) {
+      store.dispatch(getTestJsonData());
+      let unsubcribe = store.subscribe(() => {
+        store.getState().ReducerTest.testJsonData &&
+          this.setState({
+            list: store.getState().ReducerTest.testJsonData.list || [],
+            isLoading: false,
+            hadPageInit: true,
+          });
+      });
+      this.setState({
+        unsubcribe: unsubcribe,
+      });
+    } else {
+      this.setState({
+        list: store.getState().ReducerTest.testJsonData.list || [],
+        isLoading: false,
+        hadPageInit: true,
+      });
+    }
   }
-
+  componentWillUnmount() {
+    typeof this.state.unsubcribe == "function" && this.state.unsubcribe();
+  }
   shouldComponentUpdate(nextProps, nextState) {
     if (JSON.stringify(nextState) === JSON.stringify(this.state)) {
       return false;
@@ -65,6 +99,7 @@ export default class BetterScrollComponent extends Component {
       category,
     });
   };
+
   render() {
     return (
       <div>

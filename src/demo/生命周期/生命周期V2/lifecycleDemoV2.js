@@ -1,29 +1,43 @@
-import axios from "axios";
+import { Button } from "antd";
 import BetterScroll from "better-scroll";
 import { Component, PureComponent } from "react";
-import SwiperDemo from "./SwiperDemo";
+import { connect } from "react-redux";
 import "../../../asset/index.css";
+import { getTestJsonData } from "../../../redux/actionCreator/TestJsonData";
+import { store } from "../../../redux/store";
+import SwiperDemo from "./SwiperDemo";
 
 class Child extends Component {
   state = {
     category: 1,
     categoryData: "",
+    unsubcribe: undefined,
   };
   getCategory(category) {
-    axios.get("/test.json").then((res) => {
-      if (category === 1) {
-        this.setState({ categoryData: res?.data?.category_1 || "" });
-      } else {
-        this.setState({ categoryData: res?.data?.category_2 || "" });
-      }
-    });
-    console.log("=============getCategory===================");
+    const testJsonData = store.getState().ReducerTest.testJsonData;
+    if (category === 1) {
+      this.setState({ categoryData: testJsonData?.category_1 || "" });
+    } else {
+      this.setState({ categoryData: testJsonData?.category_2 || "" });
+    }
   }
   componentDidMount() {
-    console.log("===============componentDidMount=================");
-    this.getCategory(this.state.category);
+    if (!store.getState().ReducerTest.testJsonData) {
+      store.dispatch(getTestJsonData());
+      let unsubcribe = store.subscribe(() => {
+        this.getCategory(this.state.category);
+      });
+      this.setState({
+        unsubcribe: unsubcribe,
+      });
+    } else {
+      this.getCategory(this.state.category);
+    }
   }
 
+  componentWillUnmount() {
+    typeof this.state.unsubcribe == "function" && this.state.unsubcribe();
+  }
   static getDerivedStateFromProps(nextProps, nextState) {
     return {
       category: nextProps.category,
@@ -34,7 +48,6 @@ class Child extends Component {
     if (prevProps.category === this.state.category) {
       return;
     }
-    console.log("componentDidUpdate");
     this.getCategory(this.state.category);
   }
   render() {
@@ -42,8 +55,7 @@ class Child extends Component {
   }
 }
 
-
-export default class BetterScrollComponent extends PureComponent {
+class LifecycleDemoV2 extends PureComponent {
   state = {
     list: [],
     category: 1,
@@ -52,15 +64,24 @@ export default class BetterScrollComponent extends PureComponent {
     hadPageInit: false,
   };
   componentDidMount() {
-    axios.get("/test.json").then((res) => {
+    if (!this.props.ReducerTest.testJsonData) {
+      this.props.getTestJsonData();
+      store.subscribe(() => {
+        this.props.ReducerTest.testJsonData &&
+          this.setState({
+            list: this.props.ReducerTest.testJsonData.list || [],
+            isLoading: false,
+            hadPageInit: true,
+          });
+      });
+    } else {
       this.setState({
-        list: res?.data?.list || [],
+        list: this.props.ReducerTest.testJsonData.list || [],
         isLoading: false,
         hadPageInit: true,
       });
-    });
+    }
   }
-
   getSnapshotBeforeUpdate() {
     return {
       scrollTop: document.getElementById("scrollBox").scrollTop,
@@ -122,7 +143,6 @@ export default class BetterScrollComponent extends PureComponent {
             ))}
           </ul>
         </div>
-
         <ul className="tabs">
           <li className="tab-item" onClick={() => this.categoryHandler(1)}>
             分类一
@@ -133,12 +153,13 @@ export default class BetterScrollComponent extends PureComponent {
         </ul>
         {!this.state.isLoading && <Child category={this.state.category} />}
         <h3 className="text-center">测试getSnapshotBeforeUpdate</h3>
-        <button
+        <Button
+          type="primary"
           disabled={this.state.hadInsertData}
           onClick={() => this.getNewData()}
         >
           插入新数据
-        </button>
+        </Button>
         <div
           id="scrollBox"
           style={{ height: "200px", background: "#f5f5f5", overflow: "auto" }}
@@ -160,3 +181,15 @@ export default class BetterScrollComponent extends PureComponent {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const { ReducerTest = {} } = state;
+  return {
+    ReducerTest,
+  };
+};
+const mapDispatchToProps = {
+  getTestJsonData,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LifecycleDemoV2);

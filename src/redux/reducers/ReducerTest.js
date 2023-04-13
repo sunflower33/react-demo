@@ -1,8 +1,7 @@
-export default function ReducerA(prevState = {}, action) {
+export default function ReducerTest(prevState = {}, action) {
   const newState = { ...prevState };
-  console.log("ReducerA----ssseee----", action);
   switch (action.type) {
-    case "getBatchOptions":
+    case "getTestJsonData":
       return action.state || newState;
     default:
       return newState;
