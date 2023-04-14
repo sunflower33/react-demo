@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import { Col, Row,Divider } from "antd";
 import axios from "axios";
 import React, { useContext, useEffect, useReducer } from "react";
 
@@ -59,11 +59,11 @@ function ListItem(props) {
     <div
       style={{
         cursor: "pointer",
-        border: "1px solid black",
       }}
       onClick={() => dispatch({ type: "setItemDetail", value: props })}
     >
       <p> id: {props.id} </p> <p> text: {props.text} </p>
+      <Divider />
     </div>
   );
 }

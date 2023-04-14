@@ -2,6 +2,7 @@ import axios from "axios";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { connect } from "react-redux";
 import { Redirect, Route, Switch, useHistory } from "react-router-dom";
+import { Space } from "antd";
 import "../../asset/index.css";
 import Tabs from "../../components/Tabs";
 import { getTestJsonData } from "../../redux/actionCreator/TestJsonData";
@@ -119,7 +120,7 @@ function UseHooks(props) {
   );
   const filterList = useGetFilterList(list, keyword);
   return (
-    <div>
+    <Space direction="vertical" size="large">
       <section>
         <h1 className="text-center">useState()应用</h1>
 
@@ -190,7 +191,7 @@ function UseHooks(props) {
         <h1 className="text-center">useContext</h1>
         <UseContextDemo />
       </section>
-    </div>
+    </Space>
   );
 }
 

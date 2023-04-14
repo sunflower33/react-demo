@@ -1,5 +1,5 @@
 import "./index.css";
-import {store} from "./redux/store";
+import { store } from "./redux/store";
 // import App from './状态/StateDemo';
 // import App from "./demo/状态/SetState同步异步";
 // import App from "./demo/状态/BetterScroll";
@@ -17,8 +17,9 @@ import {store} from "./redux/store";
 // import App from "./demo/生命周期/生命周期V2/getDerivedStateFromProps";
 import { useEffect } from "react";
 import { connect } from "react-redux";
-import { getBatchOptions } from "./redux/actionCreator/BatchOptions";
+import { HashRouter as Router } from "react-router-dom";
 import WindowLayout from "./layout/WindowLayout";
+import { getBatchOptions } from "./redux/actionCreator/BatchOptions";
 
 function App() {
   useEffect(() => {
@@ -29,9 +30,13 @@ function App() {
       console.log("App订阅----", store.getState().ReducerOptions.dataOptions);
     });
   });
-  return <WindowLayout />;
+  return (
+    <Router>
+      <WindowLayout />
+    </Router>
+  );
 }
 // connect( 将来给传给子组件的属性， 传给子组件传来的回调函数)
 export default connect(() => {
   return {};
-},)(App);
+})(App);

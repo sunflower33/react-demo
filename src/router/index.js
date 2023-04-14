@@ -24,7 +24,6 @@ function isAuth() {
 
 export default function RouterLayout() {
   return (
-    <div>
       <Router>
         <ul>
           <li>
@@ -66,6 +65,5 @@ export default function RouterLayout() {
           {/* <Route path="*" component={NotFoundPage} /> */}
         </Switch>
       </Router>
-    </div>
   );
 }

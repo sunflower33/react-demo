@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Tabs } from "antd";
 import BetterScroll from "better-scroll";
 import { Component, PureComponent } from "react";
 import { connect } from "react-redux";
@@ -143,15 +143,24 @@ class LifecycleDemoV2 extends PureComponent {
             ))}
           </ul>
         </div>
-        <ul className="tabs">
-          <li className="tab-item" onClick={() => this.categoryHandler(1)}>
-            分类一
-          </li>
-          <li className="tab-item" onClick={() => this.categoryHandler(2)}>
-            分类二
-          </li>
-        </ul>
-        {!this.state.isLoading && <Child category={this.state.category} />}
+        <Tabs
+          onChange={this.categoryHandler}
+          type="card"
+          centered
+          activeKey={this.state.category}
+          items={[
+            {
+              label: `分类 ${1}`,
+              key: 1,
+            },
+            {
+              label: `分类 ${2}`,
+              key: 2,
+            },
+          ]}
+        />
+        <Child category={this.state.category} />
+
         <h3 className="text-center">测试getSnapshotBeforeUpdate</h3>
         <Button
           type="primary"
