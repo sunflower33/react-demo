@@ -8,7 +8,6 @@ import {
 import axios from "axios";
 
 export default function RightList() {
-  const [modal, contextHolder] = Modal.useModal();
   const [dataSource, setDataSource] = useState([]);
   const columns = [
     {

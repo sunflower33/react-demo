@@ -1,17 +1,10 @@
-import React from "react";
-
+import { Layout, theme } from "antd";
 import { connect } from "react-redux";
-import { Switch, Redirect, Route } from "react-router-dom";
+import PageFooter from "../components/layout/PageFooter";
 import SideMenu from "../components/layout/SideMenu";
 import TopHeader from "../components/layout/TopHeader";
-import PageFooter from "../components/layout/PageFooter";
-import ReactDemo from "../views/reactDemo/ReactDemo";
-import Home from "../views/Home";
-import UserList from "../views/user-manage/List"
-import RightList from "../views/right-manage/RightList";
 
-import "../asset/index.css";
-import { Layout, theme } from "antd";
+import LayoutRouter from "../router/LayoutRouter";
 const { Content } = Layout;
 
 function WindowLayout() {
@@ -31,13 +24,7 @@ function WindowLayout() {
             background: colorBgContainer,
           }}
         >
-          <Switch>
-            <Route path="/react-demo" component={ReactDemo}></Route>
-            <Route path="/home" component={Home}></Route>
-            <Route path="/user-manage/list" component={UserList}></Route>
-            <Route path="/right-manage/right/list" component={RightList}></Route>
-            <Redirect to="/home" />
-          </Switch>
+          <LayoutRouter />
         </Content>
         <PageFooter />
       </Layout>

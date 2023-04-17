@@ -1,7 +1,6 @@
 import { NavLink, Redirect, Route, Switch } from "react-router-dom";
-import "../../../asset/index.css";
-import PublishAndSubscribe from "../../../demo/通信/发布订阅/PublishAndSubscribe";
-import StatusElevation from "../../../demo/通信/状态提升/statusElevation";
+import PublishAndSubscribe from "../../demo/通信/发布订阅/PublishAndSubscribe";
+import StatusElevation from "../../demo/通信/状态提升/statusElevation";
 
 export default function LifeCycle(props) {
   return (
