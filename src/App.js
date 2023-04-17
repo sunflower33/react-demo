@@ -16,11 +16,8 @@ import { store } from "./redux/store";
 // import App from "./demo/生命周期/生命周期V1/销毁";
 // import App from "./demo/生命周期/生命周期V2/getDerivedStateFromProps";
 import { useEffect } from "react";
-import { connect } from "react-redux";
-import { HashRouter as Router } from "react-router-dom";
-import WindowLayout from "./layout/WindowLayout";
 import { getBatchOptions } from "./redux/actionCreator/BatchOptions";
-
+import RouterLayout from "./router";
 function App() {
   useEffect(() => {
     if (!store.getState()?.ReducerOptions?.dataOptions) {
@@ -31,12 +28,7 @@ function App() {
     });
   });
   return (
-    <Router>
-      <WindowLayout />
-    </Router>
+    <RouterLayout />
   );
 }
-// connect( 将来给传给子组件的属性， 传给子组件传来的回调函数)
-export default connect(() => {
-  return {};
-})(App);
+export default App

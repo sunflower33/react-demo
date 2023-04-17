@@ -1,0 +1,12 @@
+.listItem {
+  border-bottom: 1px solid #f5f5f5;
+  .title {
+    font-size: 18px;
+    color: black;
+    font-weight: 700;
+  }
+}
+
+:global(.title) {
+  font-size: red;
+}

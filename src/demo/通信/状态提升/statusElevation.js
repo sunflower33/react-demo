@@ -20,9 +20,8 @@ class ItmeDetail extends Component {
 }
 
 export default class testRequestJson extends Component {
-  constructor() {
-    super();
-    this.state = { list: [], itmeDetail: {} };
+  state = { list: [], itmeDetail: {} };
+  componentDidMount() {
     axios.get("/test.json").then((res) => {
       this.setState({ list: res?.data?.list || [] });
     });
@@ -53,3 +52,4 @@ export default class testRequestJson extends Component {
     );
   }
 }
+

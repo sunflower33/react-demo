@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Component } from "react";
 import "../../../asset/index.css";
-import style from "../../../asset/css/detail.module.css"
+import styles from "../../../asset/css/detail.module.scss"
 
 const bus = {
   cbList: [],
@@ -19,12 +19,10 @@ class ListItem extends Component {
   render() {
     return (
       <div
-        style={{
-          border: "1px solid #f5f5f5",
-        }}
+        className={styles.listItem}
         onClick={() => bus.publish(this.props)}
       >
-        <p className={style.title}>电影名称: {this.props.nm}</p>
+        <p className={styles.title}>电影名称: {this.props.nm}</p>
         <p>演员: {this.props.star}</p>
       </div>
     );
@@ -56,7 +54,6 @@ export default class testRequestJson extends Component {
         "/ajax/movieOnInfoList?token=&optimus_uuid=423B5820D84211EDA80BC1655A6E58134EDDFF350E8E4C12BEAEA889754D902E&optimus_risk_level=71&optimus_code=10"
       )
       .then((res) => {
-        console.log(res);
         this.setState({ list: res?.data?.movieList || [] });
       });
   }
