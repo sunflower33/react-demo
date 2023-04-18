@@ -1,15 +1,15 @@
 import axios from "axios";
-import {store} from "../store";
+import { fromJS } from "immutable";
+import { store } from "../store";
 export const getTestJsonData = async () => {
-  const state = { ...store.getState().ReducerTest };
+  const state = fromJS(store.getState());
   const result = {
     type: "getTestJsonData",
-    state,
+    state: store.getState(),
   };
   const resData = await axios.get("/test.json");
-  console.log(resData);
   if (resData.status === 200) {
-    result.state.testJsonData = resData.data;
+    result.state = state.set("testJsonData", resData.data).toJS();
     return result;
   }
   return result;

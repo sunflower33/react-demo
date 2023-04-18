@@ -1,8 +1,9 @@
 import BetterScroll from "better-scroll";
+import { Map } from "immutable";
 import { Component } from "react";
 import "../../../asset/index.css";
 import { getTestJsonData } from "../../../redux/actionCreator/TestJsonData";
-import {store} from "../../../redux/store";
+import { store } from "../../../redux/store";
 
 class Child extends Component {
   state = {
@@ -36,6 +37,7 @@ class Child extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
     if (JSON.stringify(nextProps) === JSON.stringify(this.props)) {
       return false;
     }
@@ -52,9 +54,11 @@ class Child extends Component {
 export default class BetterScrollComponent extends Component {
   state = {
     list: [],
-    category: 1,
+    info: Map({
+      category: 1,
+    }),
     isLoading: true,
-    unsubcribe: undefined
+    unsubcribe: undefined,
   };
   componentDidMount() {
     if (!store.getState().ReducerTest.testJsonData) {
@@ -96,7 +100,7 @@ export default class BetterScrollComponent extends Component {
 
   categoryHandler = (category) => {
     this.setState({
-      category,
+      info: this.state.info.set("category", category),
     });
   };
 
@@ -105,7 +109,7 @@ export default class BetterScrollComponent extends Component {
       <div>
         <div
           className="wrapper"
-          style={{ height: "200px", overflow: "hidden", background: "yellow" }}
+          style={{ height: "200px", overflow: "hidden", background: "#f5f5f5" }}
         >
           <ul>
             {this.state.list.map((item) => (
@@ -124,7 +128,11 @@ export default class BetterScrollComponent extends Component {
             分类二
           </li>
         </ul>
-        {!this.state.isLoading && <Child category={this.state.category} />}
+        {!this.state.isLoading && (
+          <Child
+            category={this.state.info.get("category")}
+          />
+        )}
       </div>
     );
   }

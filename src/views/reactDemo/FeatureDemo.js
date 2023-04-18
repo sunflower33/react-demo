@@ -3,6 +3,7 @@ import { memo, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import ForwardRefDemo from "../../demo/feature-demo/ForwardRefDemo";
+import ImmutableDemo from "../../demo/feature-demo/ImmutableDemo";
 import StyledComponentsDemo from "../../demo/feature-demo/StyledComponentsDemo";
 
 const PortalModal = (props) => {
@@ -97,6 +98,8 @@ export default function FeatureDemo() {
       </section>
       <Divider />
       <StyledComponentsDemo />
+      <Divider />
+      <ImmutableDemo />
     </Space>
   );
 }
