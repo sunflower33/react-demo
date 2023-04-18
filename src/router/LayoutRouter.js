@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 
 import Home from "../views/Home";
 import RightList from "../views/right-manage/RightList";
+import RoleList from "../views/right-manage/RoleList";
 import UserList from "../views/user-manage/List";
 
 /* start react-demo */
@@ -27,6 +28,8 @@ function LayoutRouter() {
       <Route path="/home" component={Home}></Route>
       <Route path="/user-manage/list" component={UserList}></Route>
       <Route path="/right-manage/right/list" component={RightList}></Route>
+      <Route path="/right-manage/role/list" component={RoleList}></Route>
+      
       <Redirect to="/home" />
     </Switch>
   );
