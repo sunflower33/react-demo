@@ -1,7 +1,7 @@
 import { Tabs } from "antd";
 import React, { Suspense } from "react";
 const LifeCycleDemoV1 = React.lazy(() =>
-  import("../../demo/生命周期/生命周期V1/LifecycleDemo")
+  import("../../demo/生命周期/生命周期V1/lifecycleDemo")
 );
 const LifecycleDemoV2 = React.lazy(() =>
   import("../../demo/生命周期/生命周期V2/lifecycleDemoV2")

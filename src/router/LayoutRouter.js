@@ -3,7 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom";
 import Home from "../views/Home";
 import RightList from "../views/right-manage/RightList";
 import RoleList from "../views/right-manage/RoleList";
-import UserList from "../views/user-manage/List";
+import UserList from "../views/user-manage/UserList";
 
 /* start react-demo */
 import { withRouter } from "react-router-dom";
