@@ -1,17 +1,25 @@
 import React from "react";
 import { Avatar, Dropdown } from "antd";
 import { UserOutlined } from "@ant-design/icons";
-export default function AvatarMenu() {
+import { withRouter } from "react-router-dom";
+function AvatarMenu(props) {
   const menus = [
     {
-      key: "Home",
+      key: "home",
       danger: true,
       label: "Logout  ",
     },
   ];
+  const handleMenuClick = (item)=>{
+    if (item.key === 'home') {
+      localStorage.removeItem('token')
+      props.history.replace('/login')
+    }
+  }
   return (
-    <Dropdown menu={{ items: menus }}>
-      <Avatar size={64} icon={<UserOutlined />} />
+    <Dropdown menu={{ items: menus , onClick: handleMenuClick,}}>
+      <Avatar size={32} icon={<UserOutlined />} />
     </Dropdown>
   );
 }
+export default withRouter(AvatarMenu)

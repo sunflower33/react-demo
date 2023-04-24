@@ -1,7 +1,11 @@
-import React from "react";
-import { Avatar, Layout, theme } from "antd";
+import { Layout, theme } from "antd";
+import styled from "styled-components";
+import AvatarMenu from "./AvatarMenu";
 const { Header } = Layout;
 export default function TopHeader() {
+  const StyledAvatar = styled.div`
+    padding: 0 14px;
+  `;
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -12,7 +16,9 @@ export default function TopHeader() {
         background: colorBgContainer,
       }}
     >
-        <Avatar className="float-right"/>
+      <StyledAvatar className="float-right">
+        <AvatarMenu />
+      </StyledAvatar>
     </Header>
   );
 }
