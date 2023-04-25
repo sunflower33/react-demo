@@ -6,6 +6,43 @@ const FormUser = forwardRef((props, ref) => {
   useEffect(() => {
     setIsDisabled(props.isUpdateDisabled);
   }, [props.isUpdateDisabled]);
+  const { roleId, region } = JSON.parse(localStorage.getItem("token"));
+
+  const roleMap = {
+    superAdmin: 1,
+    admin: 2,
+    editor: 3,
+  };
+  const checkRegionDisabled = (item) => {
+    if (props.isUpdate) {
+      if (roleMap.superAdmin === roleId) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (roleMap.superAdmin === roleId) {
+        return false;
+      } else {
+        return item.value !== region;
+      }
+    }
+  };
+  const checkRoleDisabled = (item) => {
+    if (props.isUpdate) {
+      if (roleMap.superAdmin === roleId) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      if (roleMap.superAdmin === roleId) {
+        return false;
+      } else {
+        return item.roleId !== roleMap.editor;
+      }
+    }
+  };
   return (
     <Form ref={ref} layout="vertical">
       <Form.Item label="用户名" name="username" rules={[{ required: true }]}>
@@ -17,7 +54,11 @@ const FormUser = forwardRef((props, ref) => {
       <Form.Item label="区域" name="region" rules={[{ required: !isDisabled }]}>
         <Select disabled={isDisabled}>
           {props.regionList.map((region) => (
-            <Option value={region.title} key={region.id}>
+            <Option
+              value={region.title}
+              key={region.id}
+              disabled={checkRegionDisabled(region)}
+            >
               {region.title}
             </Option>
           ))}
@@ -35,7 +76,7 @@ const FormUser = forwardRef((props, ref) => {
           }}
         >
           {props.roleList.map((item) => (
-            <Option value={item.id} key={item.id}>
+            <Option value={item.id} key={item.id} disabled={checkRoleDisabled(item)}>
               {item.roleName}
             </Option>
           ))}

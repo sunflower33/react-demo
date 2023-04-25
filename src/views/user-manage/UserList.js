@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import FormUser from "../../components/manage-user/FormUser";
 
-export default function RoleList() {
+export default function UserList() {
   const [dataSource, setDataSource] = useState([]);
   const [roleList, setRoleList] = useState([]);
   const [regionList, setRegionList] = useState([]);
@@ -196,8 +196,28 @@ export default function RoleList() {
     setIsUpdateVisible(false);
   };
   useEffect(() => {
+    const { roleId, username, region } = JSON.parse(
+      localStorage.getItem("token")
+    );
+
+    const roleMap = {
+      superAdmin: 1,
+      admin: 2,
+      editor: 3,
+    };
     axios.get("http://localhost:8000/users?_expand=role").then((response) => {
-      setDataSource(response.data);
+      const list = response.data;
+      setDataSource(
+        roleMap.superAdmin === roleId
+          ? list
+          : [
+              ...list.filter((item) => item.usename === username),
+              ...list.filter(
+                (item) =>
+                  item.region === region && roleMap.editor === item.roleId
+              ),
+            ]
+      );
     });
   }, []);
   useEffect(() => {
@@ -240,6 +260,7 @@ export default function RoleList() {
           regionList={regionList}
           roleList={roleList}
           isUpdateDisabled={isUpdateDisabled}
+          isUpdate={true}
         />
       </Modal>
     </>

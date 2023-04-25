@@ -7,8 +7,12 @@ export default function TopHeader() {
     padding: 0 14px;
   `;
   const {
-    token: { colorBgContainer },
+    token: { colorBgContainer,colorLink },
   } = theme.useToken();
+  const {
+    username,
+    role: { roleName },
+  } = JSON.parse(localStorage.getItem("token"));
   return (
     <Header
       style={{
@@ -17,7 +21,9 @@ export default function TopHeader() {
       }}
     >
       <StyledAvatar className="float-right">
-        <AvatarMenu />
+      
+        <span style={{marginRight: '10px'}}>欢迎<span style={{color: colorLink}}>{username}</span>回来</span>
+        <AvatarMenu roleName={roleName} />
       </StyledAvatar>
     </Header>
   );

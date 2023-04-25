@@ -5,21 +5,25 @@ import { withRouter } from "react-router-dom";
 function AvatarMenu(props) {
   const menus = [
     {
+      key: "roleName",
+      label: props.roleName,
+    },
+    {
       key: "home",
       danger: true,
       label: "Logout  ",
     },
   ];
-  const handleMenuClick = (item)=>{
-    if (item.key === 'home') {
-      localStorage.removeItem('token')
-      props.history.replace('/login')
+  const handleMenuClick = (item) => {
+    if (item.key === "home") {
+      localStorage.removeItem("token");
+      props.history.replace("/login");
     }
-  }
+  };
   return (
-    <Dropdown menu={{ items: menus , onClick: handleMenuClick,}}>
+    <Dropdown menu={{ items: menus, onClick: handleMenuClick }}>
       <Avatar size={32} icon={<UserOutlined />} />
     </Dropdown>
   );
 }
-export default withRouter(AvatarMenu)
+export default withRouter(AvatarMenu);

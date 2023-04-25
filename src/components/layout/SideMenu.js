@@ -23,26 +23,33 @@ function SideMenu(props) {
     const checkPagePermission = (item) => {
       return item.pagepermisson === 1;
     };
+    const {
+      role: { rights },
+    } = JSON.parse(localStorage.getItem("token"));
     const formatMenu = (menu) => {
-      return menu.map((item) => {
-        if (!checkPagePermission(item)) {
-          return false;
-        }
-        item.rightId && delete item.rightId;
-        item.label = item.title;
-        item.icon = iconList[item.key] || "";
-        if (item.children?.length) {
-          item.children = formatMenu(item.children);
-        } else {
-          item?.children && delete item.children;
-        }
-        return item;
-      });
+      return menu
+        .filter(
+          (item) => checkPagePermission(item) && rights.includes(item.key)
+        )
+        .map((item) => {
+          item.rightId && delete item.rightId;
+          item.label = item.title;
+          item.icon = iconList[item.key] || "";
+          if (item.children?.length) {
+            item.children = formatMenu(item.children);
+          } else {
+            item?.children && delete item.children;
+          }
+          return item;
+        });
     };
     axios
       .get("http://localhost:8000/rights?_embed=children")
       .then((response) => {
-        setMenu(formatMenu(response.data));
+        const rightList = response.data.filter(
+          (item) => checkPagePermission(item) && rights.includes(item.key)
+        );
+        setMenu(formatMenu(rightList));
       });
   }, []);
   const menuChange = (value) => {
@@ -77,9 +84,9 @@ function SideMenu(props) {
   //     ],
   //   },
   // ];
-  console.log(props)
-  const openKeys = [`/${props.location.pathname.split('/')[1]}`]
-  const selectKeys = [props.location.pathname]
+  console.log(props);
+  const openKeys = [`/${props.location.pathname.split("/")[1]}`];
+  const selectKeys = [props.location.pathname];
   return (
     <Sider
       breakpoint="lg"
@@ -91,10 +98,18 @@ function SideMenu(props) {
         console.log(collapsed, type);
       }}
     >
-      <div className="flex-column" style={{height: '100%', overflow: 'hidden'}}>
-        <div className="logo text-center" style={{color: 'white', padding: '10px'}}>logoquiz</div>
+      <div
+        className="flex-column"
+        style={{ height: "100%", overflow: "hidden" }}
+      >
+        <div
+          className="logo text-center"
+          style={{ color: "white", padding: "10px" }}
+        >
+          logoquiz
+        </div>
         <Menu
-          style={{flex: '1' , overflow: 'auto'}}
+          style={{ flex: "1", overflow: "auto" }}
           theme="dark"
           mode="inline"
           defaultOpenKeys={openKeys}
