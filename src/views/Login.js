@@ -1,21 +1,25 @@
-import { Button, Checkbox, Form, Input } from "antd";
-import { useCallback } from "react";
+import { Button, Checkbox, Form, Input, message, Typography } from "antd";
+import axios from "axios";
 import { useHistory } from "react-router-dom";
+import loginStyle from "../asset/css/login.module.scss";
 
 export default function Login() {
   const history = useHistory();
-  const loginHandler = useCallback(() => {
-    localStorage.setItem("token", true);
-    history.push("/userInfo");
-  }, [history]);
-  // return (
-  //   <div>
-  //     <input></input>
-  //     <button onClick={() => loginHandler()}>登录</button>
-  //   </div>
-  // );
+
   const onFinish = (values) => {
     console.log("Success:", values);
+    axios
+      .get(
+        `http://localhost:8000/users/username=${values.username}&password=${values.password}&roleState=true&_expand=role`
+      )
+      .then((res) => {
+        if (res.data.length === 0) {
+          message.error("用户名或密码不匹配");
+        } else {
+          localStorage.setItem("token", JSON.stringify(res.data[0]));
+          history.push("/");
+        }
+      });
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -26,24 +30,17 @@ export default function Login() {
   };
   return (
     <div style={pageStyle}>
-      <div>
+      <div className={loginStyle.loginContainer}>
+        <Typography.Title level={2}>登录</Typography.Title>
         <Form
           name="basic"
-          labelCol={{
-            span: 8,
-          }}
-          wrapperCol={{
-            span: 16,
-          }}
-          style={{
-            maxWidth: 600,
-          }}
           initialValues={{
             remember: true,
           }}
           onFinish={onFinish}
           onFinishFailed={onFinishFailed}
           autoComplete="off"
+          size="large"
         >
           <Form.Item
             label="Username"

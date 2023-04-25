@@ -74,3 +74,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 #### styled-components
 #### Immutable.js
     优化性能，避免deepcopy把所有节点都复制一遍带来的性能损耗，Immutable使用了结构共享，即如果修改这个节点和受它影响的父节点，其他节点则进行共享。
+#### json-server
+    cd src/db
+    执行启动命令 json-server --watch data.json --port 8000
+
+
+### node Api
+    cd src/nodeTest 
+    执行启动命令 node index.js
+    
