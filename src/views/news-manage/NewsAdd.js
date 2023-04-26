@@ -2,6 +2,7 @@ import { Button, Form, Input, Select, Space, Steps } from "antd";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import PageHeader from "../../components/layout/PageHeader";
+import NewsEditor from "../../components/news-manage/NewsEditor";
 
 export default function NewsAdd() {
   const [currentStep, setCurrentStep] = useState(0);
@@ -18,13 +19,15 @@ export default function NewsAdd() {
 
   const handleNext = () => {
     if (currentStep === 0) {
-      newsForm.current.validateFields().then(res=>{
-        console.log(res)
-      }).catch(error=>{
-        console.log(error)
-      })
+      newsForm.current
+        .validateFields()
+        .then((res) => {
+          setCurrentStep(currentStep + 1);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     }
-    setCurrentStep(currentStep + 1);
   };
   const handlePrev = () => {
     setCurrentStep(currentStep - 1);
@@ -89,6 +92,11 @@ export default function NewsAdd() {
             </Select>
           </Form.Item>
         </Form>
+      </section>
+      <section className={currentStep === 1 ? "show" : "hidden"}>
+        <NewsEditor getContent={(content)=>{
+          console.log(content)
+        }}></NewsEditor>
       </section>
       <Space>
         {currentStep === 2 && (
