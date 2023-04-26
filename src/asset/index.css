@@ -61,6 +61,13 @@
   color: brown;
 }
 
+.show {
+  display: block;
+}
+.hidden {
+  display: none;
+}
+
 /* 滚动条设置 */
 ::-webkit-scrollbar {
   width: 5px;

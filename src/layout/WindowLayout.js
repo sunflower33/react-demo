@@ -12,7 +12,6 @@ import LayoutRouter from "../router/LayoutRouter";
 import { useEffect } from "react";
 const { Content } = Layout;
 
-
 function WindowLayout() {
   const {
     token: { colorBgContainer },
