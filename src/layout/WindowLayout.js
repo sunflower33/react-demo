@@ -4,14 +4,23 @@ import PageFooter from "../components/layout/PageFooter";
 import SideMenu from "../components/layout/SideMenu";
 import TopHeader from "../components/layout/TopHeader";
 
+import nProgress from "nprogress";
+import 'nprogress/nprogress.css'
+import '../utils/http'
+
 import LayoutRouter from "../router/LayoutRouter";
+import { useEffect } from "react";
 const { Content } = Layout;
+
 
 function WindowLayout() {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  nProgress.start()
+  useEffect(()=>{
+    nProgress.done()
+  },[])
   return (
     <Layout>
       <SideMenu></SideMenu>

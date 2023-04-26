@@ -44,7 +44,7 @@ function SideMenu(props) {
         });
     };
     axios
-      .get("http://localhost:8000/rights?_embed=children")
+      .get("/rights?_embed=children")
       .then((response) => {
         const rightList = response.data.filter(
           (item) => checkPagePermission(item) && rights.includes(item.key)

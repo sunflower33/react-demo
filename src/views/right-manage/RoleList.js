@@ -48,7 +48,7 @@ export default function RoleList() {
     },
   ];
   const deleteHandler = (item) => {
-    axios.delete(`http://localhost:8000/roles/${item.id}`);
+    axios.delete(`/roles/${item.id}`);
     setDataSource(dataSource.filter((data) => data.id !== item.id));
   };
   const onDelete = (item) => {
@@ -76,7 +76,7 @@ export default function RoleList() {
         return item;
       })
     );
-    axios.patch(`http://localhost:8000/roles/${currentId}`, {
+    axios.patch(`/roles/${currentId}`, {
       rights: currentRights,
     });
   };
@@ -87,13 +87,13 @@ export default function RoleList() {
     setCurrentRights(checkedKeys.checked);
   };
   useEffect(() => {
-    axios.get("http://localhost:8000/roles").then((response) => {
+    axios.get("/roles").then((response) => {
       setDataSource(response.data);
     });
   }, []);
   useEffect(() => {
     axios
-      .get("http://localhost:8000/rights?_embed=children")
+      .get("/rights?_embed=children")
       .then((response) => {
         setRightList(response.data);
       });

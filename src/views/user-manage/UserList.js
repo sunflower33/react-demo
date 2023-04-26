@@ -93,7 +93,7 @@ export default function UserList() {
   ];
 
   const deleteHandler = (item) => {
-    axios.delete(`http://localhost:8000/users/${item.id}`);
+    axios.delete(`/users/${item.id}`);
     setDataSource(dataSource.filter((data) => data.id !== item.id));
   };
   const onDelete = (item) => {
@@ -114,7 +114,7 @@ export default function UserList() {
       .validateFields()
       .then((value) => {
         axios
-          .post(`http://localhost:8000/users`, {
+          .post(`/users`, {
             ...value,
             roleState: true,
             default: false,
@@ -142,7 +142,7 @@ export default function UserList() {
   const handleRoleStateChange = (item) => {
     item.roleState = !item.roleState;
     setDataSource([...dataSource]);
-    axios.patch(`http://localhost:8000/users/${item.id}`, {
+    axios.patch(`/users/${item.id}`, {
       roleState: item.roleState,
     });
   };
@@ -164,7 +164,7 @@ export default function UserList() {
       .validateFields()
       .then((value) => {
         axios
-          .patch(`http://localhost:8000/users/${currentUser.id}`, {
+          .patch(`/users/${currentUser.id}`, {
             ...currentUser,
             ...value,
           })
@@ -205,7 +205,7 @@ export default function UserList() {
       admin: 2,
       editor: 3,
     };
-    axios.get("http://localhost:8000/users?_expand=role").then((response) => {
+    axios.get("/users?_expand=role").then((response) => {
       const list = response.data;
       setDataSource(
         roleMap.superAdmin === roleId
@@ -221,12 +221,12 @@ export default function UserList() {
     });
   }, []);
   useEffect(() => {
-    axios.get("http://localhost:8000/regions").then((response) => {
+    axios.get("/regions").then((response) => {
       setRegionList(response.data);
     });
   }, []);
   useEffect(() => {
-    axios.get("http://localhost:8000/roles").then((response) => {
+    axios.get("/roles").then((response) => {
       setRoleList(response.data);
     });
   }, []);

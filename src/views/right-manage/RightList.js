@@ -76,10 +76,10 @@ export default function RightList() {
     if (item.grade !== 1) {
       let list = dataSource.filter((data) => data.id === item.rightId);
       list[0].children = list[0].children.filter((data) => data.id !== item.id);
-      axios.delete(`http://localhost:8000/children/${item.id}`);
+      axios.delete(`/children/${item.id}`);
       setDataSource([...dataSource]);
     } else {
-      axios.delete(`http://localhost:8000/rights/${item.id}`);
+      axios.delete(`/rights/${item.id}`);
       setDataSource(dataSource.filter((data) => data.id !== item.id));
     }
   };
@@ -87,18 +87,18 @@ export default function RightList() {
     item.pagepermisson = item.pagepermisson === 1 ? 0 : 1;
     setDataSource([...dataSource]);
     if (item.grade !== 1) {
-      axios.patch(`http://localhost:8000/children/${item.id}`, {
+      axios.patch(`/children/${item.id}`, {
         pagepermisson: item.pagepermisson,
       });
     } else {
-      axios.patch(`http://localhost:8000/rights/${item.id}`, {
+      axios.patch(`/rights/${item.id}`, {
         pagepermisson: item.pagepermisson,
       });
     }
   };
   useEffect(() => {
     axios
-      .get("http://localhost:8000/rights?_embed=children")
+      .get("/rights?_embed=children")
       .then((response) => {
         const list = response.data.map((item) => {
           if (!item.children?.length) {
