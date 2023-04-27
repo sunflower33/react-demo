@@ -1,3 +1,4 @@
+import { ArrowLeftOutlined } from "@ant-design/icons";
 import {
   Button,
   Form,
@@ -20,8 +21,6 @@ export default function NewsAdd(props) {
 
   const [formInfo, setFormInfo] = useState({});
   const [newsContent, setNewsContent] = useState("");
-
-  const userInfo = JSON.parse(localStorage.getItem("token"));
 
   const formLayout = {
     labelCol: {
@@ -57,18 +56,10 @@ export default function NewsAdd(props) {
   };
   const handleSave = (auditState) => {
     axios
-      .post("/news", {
+      .patch(`/news/${props.match.params.id}`, {
         ...formInfo,
         content: newsContent,
-        region: userInfo.region ? userInfo.region : "全球",
-        author: userInfo.username,
-        roleId: userInfo.roleId,
         auditState,
-        publishState: 0,
-        createTime: Date.now(),
-        star: 0,
-        view: 0,
-        // publishTime: 0,
       })
       .then((res) => {
         props.history.push(
@@ -89,9 +80,21 @@ export default function NewsAdd(props) {
       setCategoryList(res.data);
     });
   }, []);
+  useEffect(() => {
+    axios
+      .get(`/news/${props.match.params.id}?_expand=role&_expand=category`)
+      .then((res) => {
+        const { title, categoryId, content } = res.data;
+        form.setFieldsValue({ title, categoryId });
+        setNewsContent(content);
+      });
+  }, [props.match.params.id, form]);
   return (
     <Space direction="vertical" size="large" style={{ width: "100%" }}>
-      <PageHeader title="撰写新闻"></PageHeader>
+      <PageHeader
+        left={<ArrowLeftOutlined onClick={() => props.history.goBack()} />}
+        title="更新新闻"
+      ></PageHeader>
       <Steps
         current={currentStep}
         items={[
@@ -149,6 +152,7 @@ export default function NewsAdd(props) {
           getContent={(content) => {
             setNewsContent(content);
           }}
+          content={newsContent}
         ></NewsEditor>
       </section>
       <Space>

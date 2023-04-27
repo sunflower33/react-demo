@@ -13,6 +13,8 @@ import Unpublished from "../views/publish-manage/Unpublished";
 import RightList from "../views/right-manage/RightList";
 import RoleList from "../views/right-manage/RoleList";
 import UserList from "../views/user-manage/UserList";
+import NewsPreview from "../views/news-manage/NewsPreview";
+import NewsUpdate from "../views/news-manage/NewsUpdate";
 
 /* start react-demo */
 import axios from "axios";
@@ -34,6 +36,8 @@ const LocalRouterMap = {
   "/news-manage/add": NewsAdd,
   "/news-manage/draft": NewsDraft,
   "/news-manage/category": NewsCategory,
+  "/news-manage/preview/:id": NewsPreview,
+  "/news-manage/update/:id": NewsUpdate,
   "/audit-manage/audit": Audit,
   "/audit-manage/list": AuditList,
   "/publish-manage/unpublished": Unpublished,
@@ -47,17 +51,17 @@ function LayoutRouter() {
     role: { rights },
   } = JSON.parse(localStorage.getItem("token"));
   useEffect(() => {
-    Promise.all([
-      axios.get("/rights"),
-      axios.get("/children"),
-    ]).then((res) => {
+    Promise.all([axios.get("/rights"), axios.get("/children")]).then((res) => {
       setBackRouteList([...res[0].data, ...res[1].data]);
       console.log([...res[0].data, ...res[1].data]);
     });
   }, []);
 
   const checkRoute = (item) => {
-    return LocalRouterMap[item.key] && item.pagepermisson === 1;
+    return (
+      LocalRouterMap[item.key] &&
+      (item.pagepermisson === 1 || item.routepermisson === 1)
+    );
   };
   const checkUserPermission = (item) => {
     return rights.includes(item.key);
