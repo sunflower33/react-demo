@@ -1,9 +1,15 @@
 import { ArrowLeftOutlined } from "@ant-design/icons";
-import { Card, Descriptions, Space, Typography } from "antd";
+import { Card, Descriptions, Space, Tag, Typography } from "antd";
 import axios from "axios";
 import moment from "moment/moment";
 import { useEffect, useState } from "react";
 import PageHeader from "../../components/layout/PageHeader";
+import {
+  AuditStateColor,
+  AuditStateMap,
+  PublishStateColor,
+  PublishStateMap,
+} from "../../config/enum";
 
 const { Text } = Typography;
 
@@ -18,25 +24,12 @@ export default function NewsPreview(props) {
       });
   }, [props.match.params.id]);
 
-  const auditStateMap = {
-    0: "未审核",
-    1: "审核中",
-    2: "已通过",
-    3: "未通过",
-  };
-  const publishStateMap = {
-    0: "未发布",
-    1: "待发布",
-    2: "已上线",
-    3: "已下线",
-  };
-
   return (
     <>
       {dataSource && (
         <Space direction="vertical">
           <PageHeader
-            left={<ArrowLeftOutlined onClick={()=>props.history.goBack()} />}
+            left={<ArrowLeftOutlined onClick={() => props.history.goBack()} />}
             title={dataSource.title}
             subTitle={dataSource.category.title}
           ></PageHeader>
@@ -56,12 +49,14 @@ export default function NewsPreview(props) {
               {dataSource.region}
             </Descriptions.Item>
             <Descriptions.Item label="审核状态">
-              <Text type="danger">{auditStateMap[dataSource.auditState]}</Text>
+              <Tag color={AuditStateColor[dataSource.auditState]}>
+                {AuditStateMap[dataSource.auditState]}
+              </Tag>
             </Descriptions.Item>
             <Descriptions.Item label="发布状态">
-              <Text type="danger">
-                {publishStateMap[dataSource.publishState]}
-              </Text>
+              <Tag color={PublishStateColor[dataSource.publishState]}>
+                {PublishStateMap[dataSource.publishState]}
+              </Tag>
             </Descriptions.Item>
             <Descriptions.Item label="访问数量">
               <Text type="success">{dataSource.view}</Text>

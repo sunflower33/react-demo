@@ -41,8 +41,8 @@ const LocalRouterMap = {
   "/audit-manage/audit": Audit,
   "/audit-manage/list": AuditList,
   "/publish-manage/unpublished": Unpublished,
-  "/publish-managepu/published": Published,
-  "/publish-managepu/sunset": Sunset,
+  "/publish-manage/published": Published,
+  "/publish-manage/sunset": Sunset,
 };
 
 function LayoutRouter() {
