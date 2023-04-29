@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { withRouter } from "react-router-dom";
 import {
   UploadOutlined,
   UserOutlined,
   VideoCameraOutlined,
 } from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { Layout, Menu, Space } from "antd";
 import axios from "axios";
+import { useEffect, useState } from "react";
+import { withRouter } from "react-router-dom";
 const { Sider } = Layout;
 
 const iconList = {
@@ -43,48 +43,16 @@ function SideMenu(props) {
           return item;
         });
     };
-    axios
-      .get("/rights?_embed=children")
-      .then((response) => {
-        const rightList = response.data.filter(
-          (item) => checkPagePermission(item) && rights.includes(item.key)
-        );
-        setMenu(formatMenu(rightList));
-      });
+    axios.get("/rights?_embed=children").then((response) => {
+      const rightList = response.data.filter(
+        (item) => checkPagePermission(item) && rights.includes(item.key)
+      );
+      setMenu(formatMenu(rightList));
+    });
   }, []);
   const menuChange = (value) => {
     props.history.push(value.key);
   };
-  // const menus = [
-  //   {
-  //     key: "/react-demo",
-  //     icon: <UserOutlined />,
-  //     label: `React Demo`,
-  //     children: [
-  //       {
-  //         key: "/react-demo/communication",
-  //         icon: <UserOutlined />,
-  //         label: `通信`,
-  //       },
-  //       {
-  //         key: "/react-demo/hooksDemo",
-  //         icon: <VideoCameraOutlined />,
-  //         label: `hooks demo`,
-  //       },
-  //       {
-  //         key: "/react-demo/lifeCycle",
-  //         icon: <UserOutlined />,
-  //         label: `生命周期`,
-  //       },
-  //       {
-  //         key: "/react-demo/userInfo",
-  //         icon: <UploadOutlined />,
-  //         label: `个人中心`,
-  //       },
-  //     ],
-  //   },
-  // ];
-  console.log(props);
   const openKeys = [`/${props.location.pathname.split("/")[1]}`];
   const selectKeys = [props.location.pathname];
   return (
@@ -98,9 +66,9 @@ function SideMenu(props) {
         console.log(collapsed, type);
       }}
     >
-      <div
-        className="flex-column"
-        style={{ height: "100%", overflow: "hidden" }}
+      <Space
+        direction="vertical"
+        style={{ height: "100vh", width: "100%", overflow: "hidden" }}
       >
         <div
           className="logo text-center"
@@ -117,7 +85,7 @@ function SideMenu(props) {
           items={menu}
           onClick={menuChange}
         />
-      </div>
+      </Space>
     </Sider>
   );
 }
