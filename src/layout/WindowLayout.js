@@ -1,25 +1,25 @@
-import { Layout, theme } from "antd";
+import { Layout, Spin, theme } from "antd";
 import { connect } from "react-redux";
 import PageFooter from "../components/layout/PageFooter";
 import SideMenu from "../components/layout/SideMenu";
 import TopHeader from "../components/layout/TopHeader";
 
 import nProgress from "nprogress";
-import 'nprogress/nprogress.css'
-import '../utils/http'
+import "nprogress/nprogress.css";
+import "../utils/http";
 
-import LayoutRouter from "../router/LayoutRouter";
 import { useEffect } from "react";
+import LayoutRouter from "../router/LayoutRouter";
 const { Content } = Layout;
 
-function WindowLayout() {
+function WindowLayout(props) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  nProgress.start()
-  useEffect(()=>{
-    nProgress.done()
-  },[])
+  nProgress.start();
+  useEffect(() => {
+    nProgress.done();
+  }, []);
   return (
     <Layout>
       <SideMenu></SideMenu>
@@ -32,14 +32,22 @@ function WindowLayout() {
             background: colorBgContainer,
           }}
         >
-          <LayoutRouter />
+          <Spin spinning={props.isRouterPageLoading}>
+            <LayoutRouter />
+          </Spin>
         </Content>
         <PageFooter />
       </Layout>
     </Layout>
   );
 }
+const mapStateToProps = (state) => {
+  const {
+    ReducerLayout: { isRouterPageLoading },
+  } = state;
+  return {
+    isRouterPageLoading,
+  };
+};
 // connect( 将来给传给子组件的属性， 传给子组件传来的回调函数)
-export default connect(() => {
-  return {};
-})(WindowLayout);
+export default connect(mapStateToProps)(WindowLayout);

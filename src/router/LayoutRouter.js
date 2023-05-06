@@ -53,7 +53,6 @@ function LayoutRouter() {
   useEffect(() => {
     Promise.all([axios.get("/rights"), axios.get("/children")]).then((res) => {
       setBackRouteList([...res[0].data, ...res[1].data]);
-      console.log([...res[0].data, ...res[1].data]);
     });
   }, []);
 

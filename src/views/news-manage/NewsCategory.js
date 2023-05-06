@@ -177,7 +177,7 @@ export default function RightList() {
   };
   return (
     <div>
-      RightList
+      新闻分类
       <Table
         components={components}
         columns={columns}

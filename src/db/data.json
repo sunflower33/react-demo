@@ -463,7 +463,7 @@
       "publishState": 2,
       "createTime": 1615777743864,
       "star": 1000,
-      "view": 2005,
+      "view": 2,
       "id": 1,
       "publishTime": 1615778496314
     },
@@ -654,8 +654,8 @@
       "auditState": 2,
       "publishState": 2,
       "createTime": 1682673397441,
-      "star": 0,
-      "view": 0,
+      "star": 2,
+      "view": 5,
       "id": 15,
       "publishTime": 1682673463849
     }

@@ -6,6 +6,7 @@ import {
 import { Layout, Menu, Space } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 const { Sider } = Layout;
 
@@ -58,13 +59,9 @@ function SideMenu(props) {
   return (
     <Sider
       breakpoint="lg"
-      collapsedWidth="0"
-      onBreakpoint={(broken) => {
-        console.log(broken);
-      }}
-      onCollapse={(collapsed, type) => {
-        console.log(collapsed, type);
-      }}
+      collapsedWidth="60"
+      trigger={null}
+      collapsed={props.isSiderCollapsed}
     >
       <Space
         direction="vertical"
@@ -90,4 +87,14 @@ function SideMenu(props) {
   );
 }
 
-export default withRouter(SideMenu);
+const mapStateToProps = (state) => {
+  const {
+    ReducerLayout: { isSiderCollapsed },
+  } = state;
+  return {
+    isSiderCollapsed,
+  };
+};
+export default connect(
+  mapStateToProps
+)(withRouter(SideMenu));

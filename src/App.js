@@ -26,7 +26,7 @@ function App() {
     store.subscribe(() => {
       console.log("App订阅----", store.getState().ReducerOptions.dataOptions);
     });
-  });
+  }, []);
   return (
     <RouterLayout />
   );

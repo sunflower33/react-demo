@@ -1,0 +1,134 @@
+{
+  "trafficBlackList": [
+    {
+      "id": 1,
+      "distribution_name": "admin",
+      "adx_name": "123456",
+      "package_name": "true",
+      "country": "country",
+      "operator": "operator",
+      "status": 1,
+      "updated": "updated"
+    },
+    {
+      "updated": 1683282781453,
+      "operator": "test",
+      "distribution_name": "十大v的",
+      "package_name": "阿瑟东v二",
+      "adx_name": 0,
+      "country": 0,
+      "status": 1,
+      "id": 2
+    },
+    {
+      "updated": 1683282915081,
+      "operator": "test",
+      "distribution_name": "撒范德萨a",
+      "adx_name": 1,
+      "package_name": "阿斯顿v擦",
+      "country": 0,
+      "status": 1,
+      "id": 3
+    },
+    {
+      "updated": 1683283777635,
+      "operator": "test",
+      "distribution_name": "34放4 2被5人被53 ",
+      "adx_name": 0,
+      "package_name": "3453543 3",
+      "country": 0,
+      "status": 1,
+      "id": 4
+    },
+    {
+      "updated": 1683283958006,
+      "operator": "test",
+      "distribution_name": "哇哇哇哇",
+      "adx_name": 0,
+      "package_name": "嗡嗡嗡嗡嗡嗡",
+      "country": 1,
+      "status": 1,
+      "id": 5
+    },
+    {
+      "updated": 1683284013303,
+      "operator": "test",
+      "distribution_name": "为 范德萨v范德萨",
+      "adx_name": 0,
+      "package_name": "士大夫VS",
+      "country": 0,
+      "status": 1,
+      "id": 6
+    },
+    {
+      "updated": 1683284016593,
+      "operator": "test",
+      "distribution_name": "为 范德萨v范德萨",
+      "adx_name": 0,
+      "package_name": "士大夫VS",
+      "country": 0,
+      "status": 1,
+      "id": 7
+    },
+    {
+      "updated": 1683284023795,
+      "operator": "test",
+      "distribution_name": "为 范德萨v范德萨",
+      "adx_name": 0,
+      "package_name": "士大夫VS",
+      "country": 0,
+      "status": 1,
+      "id": 8
+    },
+    {
+      "updated": 1683284118331,
+      "operator": "test",
+      "distribution_name": "哇塞飞去擦我去",
+      "package_name": "安德森擦VCD撒",
+      "status": 1,
+      "adx_name": 1,
+      "country": 0,
+      "id": 9
+    },
+    {
+      "updated": 1683284119962,
+      "operator": "test",
+      "distribution_name": "哇塞飞去擦我去",
+      "package_name": "安德森擦VCD撒",
+      "status": 1,
+      "adx_name": 1,
+      "country": 0,
+      "id": 10
+    },
+    {
+      "updated": 1683284172473,
+      "operator": "test",
+      "distribution_name": "阿斯顿法定",
+      "package_name": "a上的擦掉v",
+      "status": 1,
+      "adx_name": 0,
+      "country": 0,
+      "id": 11
+    },
+    {
+      "updated": 1683284203342,
+      "operator": "test",
+      "distribution_name": "违反热舞热舞",
+      "package_name": "问问",
+      "status": 1,
+      "adx_name": 0,
+      "country": 0,
+      "id": 12
+    },
+    {
+      "updated": 1683284212806,
+      "operator": "test",
+      "distribution_name": "违反热舞热舞",
+      "package_name": "问问",
+      "status": 1,
+      "adx_name": 0,
+      "country": 0,
+      "id": 13
+    }
+  ]
+}
