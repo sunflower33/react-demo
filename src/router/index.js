@@ -12,6 +12,7 @@ import NotFoundPage from "../views/notFoundPage";
 import WindowLayout from "../layout/WindowLayout";
 import News from "../views/news/News";
 import Detail from "../views/news/Detail";
+import DemoLayout from "../layout/DemoLayout";
 
 function isAuth() {
   const token = window.localStorage?.token;
@@ -26,6 +27,7 @@ export default function RouterLayout() {
         <Route path="/login" component={Login} />
         <Route path="/news" component={News} />
         <Route path="/detail/:id" component={Detail} />
+        <Route path="/demos" component={DemoLayout} />
         <Route
           path="/"
           render={() => {

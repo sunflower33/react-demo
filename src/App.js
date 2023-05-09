@@ -15,18 +15,18 @@ import { store } from "./redux/store";
 // import App from "./demo/生命周期/生命周期V1/lifecycle";
 // import App from "./demo/生命周期/生命周期V1/销毁";
 // import App from "./demo/生命周期/生命周期V2/getDerivedStateFromProps";
-import { useEffect } from "react";
-import { getBatchOptions } from "./redux/actionCreator/BatchOptions";
+// import { useEffect } from "react";
+// import { getBatchOptions } from "./redux/actionCreator/BatchOptions";
 import RouterLayout from "./router";
 function App() {
-  useEffect(() => {
-    if (!store.getState()?.ReducerOptions?.dataOptions) {
-      store.dispatch(getBatchOptions(["country"]));
-    }
-    store.subscribe(() => {
-      console.log("App订阅----", store.getState().ReducerOptions.dataOptions);
-    });
-  }, []);
+  // useEffect(() => {
+  //   if (!store.getState()?.ReducerOptions?.dataOptions) {
+  //     store.dispatch(getBatchOptions(["country"]));
+  //   }
+  //   store.subscribe(() => {
+  //     console.log("App订阅----", store.getState().ReducerOptions.dataOptions);
+  //   });
+  // }, []);
   return (
     <RouterLayout />
   );
