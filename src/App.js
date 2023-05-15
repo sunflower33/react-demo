@@ -1,5 +1,4 @@
 import "./index.css";
-import { store } from "./redux/store";
 // import App from './状态/StateDemo';
 // import App from "./demo/状态/SetState同步异步";
 // import App from "./demo/状态/BetterScroll";
@@ -27,8 +26,6 @@ function App() {
   //     console.log("App订阅----", store.getState().ReducerOptions.dataOptions);
   //   });
   // }, []);
-  return (
-    <RouterLayout />
-  );
+  return <RouterLayout />;
 }
-export default App
+export default App;
