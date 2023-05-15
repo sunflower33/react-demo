@@ -25,6 +25,14 @@ function SideMenu(props) {
             },
           },
           {
+            key: "/demos/testGraphQL",
+            icon: <UserOutlined />,
+            label: "GraphQL",
+            onClick: (item) => {
+              props.history.push(item.key);
+            },
+          },
+          {
             key: "2",
             icon: <VideoCameraOutlined />,
             label: "nav 2",
