@@ -1,10 +1,11 @@
-import fetch from 'dva/fetch';
+import fetch from "dva/fetch";
 
 function parseJSON(response) {
   return response.json();
 }
 
 function checkStatus(response) {
+  console.log('response======',response)
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
@@ -23,8 +24,14 @@ function checkStatus(response) {
  */
 export default function request(url, options) {
   return fetch(url, options)
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(data => ({ data }))
-    .catch(err => ({ err }));
+    .then((res) => {
+      console.log("res===========", res);
+      return checkStatus(res);
+    })
+    .then(res=>{
+      console.log('---------------', res)
+      return parseJSON()
+    })
+    .then((data) => ({ data }))
+    .catch((err) => ({ err }));
 }
