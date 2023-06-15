@@ -6,21 +6,23 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
 // createApi需要一个对象来作为参数
 const studentApi = createApi({
   reducerPath: "studentApi", // API的命名空间
-  baseQuery: fetchBaseQuery({ baseUrl: "" }),
-  endpoints(build) {
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8000" }),
+  endpoints: (build) => {
     return {
-      getStudents: build.query({
+        getStudents: build.query({
         query() {
-          return "/students";
+          return "/users";
         },
       }),
     };
   },
 });
 
+console.log(studentApi)
+
 // Api对象创建后，对象中会根据各种方法自动生成对应的钩子函数
 // 通过这些钩子函数，可以向服务器发送请求
 // 钩子函数的命名规则 getStudens ---> useGetStudensQuery
-export const { useGetStudensQuery } = studentApi;
+export const { useGetStudentsQuery  } = studentApi
 
 export default studentApi;
