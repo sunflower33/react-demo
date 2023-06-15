@@ -8,27 +8,27 @@ import {
 import {
   CompositePanel,
   Designer,
-  DesignerToolsWidget,
-  HistoryWidget,
   IconWidget,
-  OutlineTreeWidget,
-  ResourceWidget,
-  SettingsPanel,
   StudioPanel,
-  ToolbarPanel,
-  ViewPanel,
-  ViewportPanel,
-  ViewToolsWidget,
   Workbench,
+  ResourceWidget,
+  OutlineTreeWidget,
+  HistoryWidget,
   WorkspacePanel,
+  ToolbarPanel,
+  ViewToolsWidget,
+  DesignerToolsWidget,
+  ViewportPanel,
+  ViewPanel,
+  SettingsPanel
 } from "@designable/react";
 import { MonacoInput, SettingsForm } from "@designable/react-settings-form";
 import { observer } from "@formily/react";
 import { Button, Radio, Space } from "antd";
 import { useEffect } from "react";
-import { Content } from "./content";
-//import { Sandbox } from '@designable/react-sandbox'
-import "antd/dist/antd.less";
+import "./App.css";
+import Content from "./components/content/Content";
+
 
 const RootBehavior = createBehavior({
   name: "Root",
@@ -48,7 +48,6 @@ const RootBehavior = createBehavior({
     },
   },
 });
-
 const InputBehavior = createBehavior({
   name: "Input",
   selector: (node) =>
@@ -205,7 +204,6 @@ const InputBehavior = createBehavior({
     },
   },
 });
-
 const CardBehavior = createBehavior({
   name: "Card",
   selector: "Card",
@@ -431,7 +429,10 @@ export default function App() {
               <ViewToolsWidget />{" "}
             </ToolbarPanel>
             <ViewportPanel>
-              <ViewPanel type="DESIGNABLE">{() => <Content />}</ViewPanel>
+              {/* <ViewPanel type="DESIGNABLE">{() => <Content />}</ViewPanel> */}
+              <ViewPanel type="DESIGNABLE">
+                {() => <Content />}
+              </ViewPanel>
               <ViewPanel type="JSONTREE">
                 {() => {
                   return (
