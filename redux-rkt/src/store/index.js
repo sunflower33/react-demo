@@ -7,8 +7,8 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 // configureStore创建store对象，需要一个配置对象作为参数
 const store = configureStore({
   reducer: {
-    student: stuReducer,
-    school: schoolReducer,
+    // student: stuReducer,
+    // school: schoolReducer,
     [studentApi.reducerPath]: studentApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
