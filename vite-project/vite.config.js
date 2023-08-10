@@ -11,5 +11,12 @@ export default defineConfig({
     modules: {
       localsConvention: 'camelCase', // 将类名转化成驼峰式
     }
+  },
+  resolve: {
+    alias: {
+      '@': '/src',
+      '@components': '/src/components'
+    },
+    extensions: ['.js', '.ts', '.jsx', '.tsx', '.json'],
   }
 });

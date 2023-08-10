@@ -10,7 +10,9 @@ import ReactDOM from 'react-dom/client'
   1. 操作浏览器DOM
   2. react-dom/client、react-dom/server
 */
-import App from './App.jsx'
+// import App from './App.jsx'
+// import App from '@components/UseImmerDemo'
+import App from '@components/ForwardRefDemo'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
