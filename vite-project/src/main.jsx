@@ -12,7 +12,15 @@ import ReactDOM from 'react-dom/client'
 */
 // import App from './App.jsx'
 // import App from '@components/UseImmerDemo'
-import App from '@components/ForwardRefDemo'
+// import App from '@components/ForwardRefDemo'
+// import App from '@components/ImmerReducerDemo'
+// import App from '@components/StartTransitionDemo'
+// import App from '@components/UseTransitionDemo'
+// import App from '@components/UseDeferredValueDemo'
+// import App from '@components/ThemeDome'
+// import App from '@components/LocalLanguageDemo'
+// import App from '@components/CustomHooksDemo'
+import App from '@components/ahooksDemo/UseRequestDemo'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -18,7 +18,6 @@ const reducer = (prevState, action) => {
     case "setItemDetail":
       nextState.itmeDetail = action.value;
       return nextState;
-
     default:
       return prevState;
   }
