@@ -1,4 +1,4 @@
-import useMouse from '../hooks/useMouse'
+import useMouse from '../../hooks/useMouse'
 
 export default function CustomHooksDemo() {
     const mouse = useMouse()

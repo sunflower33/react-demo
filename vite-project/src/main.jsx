@@ -20,8 +20,14 @@ import ReactDOM from 'react-dom/client'
 // import App from '@components/ThemeDome'
 // import App from '@components/LocalLanguageDemo'
 // import App from '@components/CustomHooksDemo'
-import App from '@components/ahooksDemo/UseRequestDemo'
+// import App from '@components/ahooksDemo/UseRequestDemo'
+// import App from '@components/customHooks/UseUpdateEffectDemo'
+// import App from '@components/reactDomDemo/FlushSyncDemo'
+import App from '@components/reactDomDemo/LazyAndSuspenseDemo'
 import './index.css'
+
+
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
